@@ -39,5 +39,22 @@
     { "id": "capture",   "label": "Capture" }
   ],
 
-  "products": []
+  "products": [
+    {
+      "id": "redragon-m901k",
+      "name": "Redragon M901K",
+      "category": "mice",
+      "budget": "under100",
+      "asin": "B0D3PNVQWK",
+      "verdict": "",
+      "specs": {
+        "Type": "MMO",
+        "Max DPI": "12,400",
+        "Programmable buttons": "19",
+        "Side buttons": "12",
+        "Weight tuning": "8 x 2.4g",
+        "Lighting": "RGB"
+      }
+    }
+  ]
 }
