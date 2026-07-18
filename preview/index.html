@@ -78,9 +78,9 @@
      phones. Rebuilt natively - the original was LESS against Squarespace
      markup and could not be used directly. */
   .burger{
-    margin-left:auto;display:inline-flex;flex-direction:column;justify-content:center;
-    gap:5px;width:44px;height:40px;padding:0 10px;background:none;border:0;
-    cursor:pointer;z-index:80;
+    margin-left:-10px;margin-right:4px;display:inline-flex;flex-direction:column;
+    justify-content:center;gap:5px;width:44px;height:40px;padding:0 10px;
+    background:none;border:0;cursor:pointer;z-index:80;flex:none;
   }
   .burger i{display:block;height:2px;background:var(--fg);border-radius:2px;
     transition:transform .35s cubic-bezier(.4,0,.2,1),opacity .25s}
@@ -269,6 +269,9 @@
 
 <nav>
   <div class="nav-in">
+    <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="panel">
+      <i></i><i></i><i></i>
+    </button>
     <a class="word" href="#top">NEXEDGE<b>.</b></a>
     <div class="tabs">
       <a class="on" href="#top">Home</a>
@@ -279,9 +282,6 @@
       <a href="#contact">Contact</a>
     </div>
     <!-- social icons drop in here once Paul supplies the real YouTube / Instagram URLs -->
-    <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="panel">
-      <i></i><i></i><i></i>
-    </button>
   </div>
 </nav>
 
