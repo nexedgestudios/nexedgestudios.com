@@ -22,7 +22,7 @@
     "  pick      optional. true marks it as your recommendation in that band."
   ],
 
-  "affiliateTag": "",
+  "affiliateTag": "nexedge-20",
 
   "budgets": [
     { "id": "under100", "label": "Under $100" },
