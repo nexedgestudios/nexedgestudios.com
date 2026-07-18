@@ -2,24 +2,20 @@
   "_readme": [
     "This one file drives the whole comparison tool. Edit it, commit, done.",
     "",
-    "affiliateTag  Your Amazon Associates tag, e.g. nexedge-20.",
-    "              While this is empty, buy buttons are hidden entirely so the",
-    "              site never ships untagged links that earn nothing.",
+    "affiliateTag  Amazon Associates tag. While empty, buy buttons are hidden",
+    "              entirely so the site never ships untagged links.",
     "",
     "DO NOT put prices in here. Amazon requires displayed prices to be",
-    "refreshed or removed within 24 hours, and anything you type will be stale",
-    "within days. Use the budget band instead and let Amazon show the price.",
+    "refreshed or removed within 24 hours. Use the budget band and let Amazon",
+    "show the live price.",
     "",
-    "Each product needs:",
-    "  id        short unique slug",
-    "  name      what it is called",
-    "  category  must match one of the category ids below",
-    "  budget    must match one of the budget ids below",
-    "  asin      Amazon ASIN, found in the product URL (/dp/XXXXXXXXXX)",
-    "  verdict   one honest sentence. This is the whole point of the page.",
-    "  specs     any key/value pairs you want compared. Keys line up across",
-    "            products in the same category, so keep them consistent.",
-    "  pick      optional. true marks it as your recommendation in that band."
+    "SPECS ARE TAKEN FROM EACH PRODUCT'S OWN AMAZON TITLE, which is tied to the",
+    "specific ASIN. The 'Features & Specs' table on Amazon is NOT reliable for",
+    "listings with variants - the UtechSmart Venus table reports Bluetooth /",
+    "wireless / 70hr while its title says wired. Always cross-check.",
+    "",
+    "Fields: id, name, category, budget, asin, verdict (optional), specs,",
+    "pick (optional, marks it as a recommendation)."
   ],
 
   "affiliateTag": "nexedge-20",
@@ -48,12 +44,89 @@
       "asin": "B0D3PNVQWK",
       "verdict": "",
       "specs": {
-        "Type": "MMO",
         "Max DPI": "12,400",
         "Programmable buttons": "19",
         "Side buttons": "12",
         "Weight tuning": "8 x 2.4g",
         "Lighting": "RGB"
+      }
+    },
+    {
+      "id": "redragon-m908",
+      "name": "Redragon M908 Impact",
+      "category": "mice",
+      "budget": "under100",
+      "asin": "B07HC4NBQ8",
+      "verdict": "",
+      "specs": {
+        "Connection": "Wired",
+        "Max DPI": "12,400",
+        "Programmable buttons": "18",
+        "Side buttons": "12",
+        "Sensor": "Optical",
+        "Lighting": "RGB"
+      }
+    },
+    {
+      "id": "redragon-m901p-ks",
+      "name": "Redragon M901P-KS",
+      "category": "mice",
+      "budget": "under100",
+      "asin": "B0CKN2NSYL",
+      "verdict": "",
+      "specs": {
+        "Connection": "Wireless",
+        "Max DPI": "16,000",
+        "Programmable buttons": "16",
+        "Side buttons": "12",
+        "Battery life": "70 hours",
+        "Lighting": "RGB"
+      }
+    },
+    {
+      "id": "utechsmart-venus",
+      "name": "UtechSmart Venus",
+      "category": "mice",
+      "budget": "under100",
+      "asin": "B07XP4K152",
+      "verdict": "",
+      "specs": {
+        "Connection": "Wired",
+        "Max DPI": "16,400",
+        "Sensor": "Laser",
+        "Lighting": "RGB"
+      }
+    },
+    {
+      "id": "razer-naga-v2-hyperspeed",
+      "name": "Razer Naga V2 HyperSpeed",
+      "category": "mice",
+      "budget": "100to200",
+      "asin": "B0BGJT87N2",
+      "verdict": "",
+      "specs": {
+        "Connection": "Wireless",
+        "Sensor": "Focus Pro 30K optical",
+        "Programmable buttons": "19",
+        "Switches": "Mechanical Gen-2",
+        "Scroll": "HyperScroll",
+        "Battery life": "Up to 400 hours"
+      }
+    },
+    {
+      "id": "corsair-scimitar-elite-wireless-se",
+      "name": "Corsair Scimitar Elite Wireless SE",
+      "category": "mice",
+      "budget": "100to200",
+      "asin": "B0F6NGCDFN",
+      "verdict": "",
+      "specs": {
+        "Connection": "Wireless",
+        "Max DPI": "33,000",
+        "Programmable buttons": "16",
+        "Key slider": "Yes",
+        "Polling rate": "1,000Hz",
+        "Battery life": "Up to 150 hours"
       }
     }
   ]
