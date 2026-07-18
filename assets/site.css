@@ -45,6 +45,13 @@ nav.top{position:sticky;top:0;z-index:60;
 .word{font-weight:900;letter-spacing:-.045em;font-size:20px;
   text-decoration:none;white-space:nowrap;margin-right:4px}
 .word b{color:var(--accent)}
+/* On mobile the wordmark centres itself regardless of the burger's width.
+   Absolute centring beats flex here - it stays dead centre even though the
+   burger sits on the left and there is nothing on the right. */
+@media(max-width:880px){
+  .nav-in{position:relative;min-height:40px}
+  nav.top .word{position:absolute;left:50%;transform:translateX(-50%);margin:0}
+}
 .tabs{display:flex;gap:2px;align-items:center;flex:1}
 .tabs a{color:var(--muted);text-decoration:none;font-size:12px;
   letter-spacing:.1em;text-transform:uppercase;font-weight:700;
