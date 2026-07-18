@@ -17,6 +17,7 @@
     --accent:#ee2b39;    /* NexEdge red */
     --accent-ink:#ffffff;
     --max:1120px;
+    --gutter:30px;       /* wide enough that the hand-drawn ring never clips */
   }
   *{box-sizing:border-box}
   html{-webkit-text-size-adjust:100%}
@@ -25,31 +26,47 @@
     font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     -webkit-font-smoothing:antialiased;overflow-x:hidden;
   }
-  .wrap{max-width:var(--max);margin:0 auto;padding:0 22px}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 var(--gutter)}
 
   /* ---------- nav ---------- */
   nav{
     position:sticky;top:0;z-index:50;
-    background:rgba(10,10,11,.84);backdrop-filter:blur(10px);
+    background:rgba(10,10,11,.86);backdrop-filter:blur(10px);
     border-bottom:1px solid var(--line);
   }
   .nav-in{
-    max-width:var(--max);margin:0 auto;padding:14px 22px;
-    display:flex;align-items:center;justify-content:space-between;gap:16px;
+    max-width:var(--max);margin:0 auto;padding:13px var(--gutter);
+    display:flex;align-items:center;gap:18px;
   }
   .word{font-weight:900;letter-spacing:-.045em;font-size:20px;
-    text-decoration:none;color:var(--fg);white-space:nowrap}
+    text-decoration:none;color:var(--fg);white-space:nowrap;margin-right:6px}
   .word b{color:var(--accent)}
-  .nav-links{display:flex;gap:22px;align-items:center}
-  .nav-links a{
+
+  .tabs{display:flex;gap:4px;align-items:center;flex:1;overflow-x:auto;
+    scrollbar-width:none;-ms-overflow-style:none}
+  .tabs::-webkit-scrollbar{display:none}
+  .tabs a{
     color:var(--muted);text-decoration:none;font-size:12px;
-    letter-spacing:.12em;text-transform:uppercase;font-weight:600;
+    letter-spacing:.1em;text-transform:uppercase;font-weight:700;
+    padding:8px 11px;border-radius:8px;white-space:nowrap;
   }
-  .nav-links a:hover{color:var(--fg)}
-  @media(max-width:720px){ .nav-links{display:none} }
+  .tabs a:hover{color:var(--fg);background:#1a1c20}
+  .tabs a.on{color:var(--fg)}
+  .tabs a.soon{opacity:.55}
+  .tabs a.soon:after{content:" •";color:var(--accent)}
+
+  .social{display:flex;gap:6px;align-items:center;margin-left:auto}
+  .social a{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:34px;height:34px;border-radius:9px;border:1px solid var(--line);
+    color:var(--muted);background:var(--card);
+  }
+  .social a:hover{color:var(--fg);border-color:var(--accent)}
+  .social svg{width:17px;height:17px;fill:currentColor}
+  @media(max-width:860px){ .word{font-size:18px} .tabs a{padding:7px 8px;font-size:11px} }
 
   /* ---------- hero ---------- */
-  header{padding:104px 0 84px;position:relative;overflow:hidden}
+  header{padding:96px 0 80px;position:relative;overflow:visible}
   header:before{
     content:"";position:absolute;inset:-40% -20% auto -20%;height:520px;
     background:radial-gradient(58% 58% at 50% 40%, rgba(238,43,57,.15), transparent 70%);
@@ -63,17 +80,18 @@
   .pip{width:7px;height:7px;border-radius:50%;background:var(--accent);
     box-shadow:0 0 0 4px rgba(238,43,57,.18)}
   h1{
-    margin:0 0 26px;font-weight:900;letter-spacing:-.045em;
-    font-size:clamp(2.9rem,10vw,6.4rem);line-height:.98;text-transform:uppercase;
+    margin:0 0 28px;font-weight:900;letter-spacing:-.045em;
+    font-size:clamp(2.8rem,9.4vw,6.2rem);line-height:1.02;text-transform:uppercase;
   }
-  /* hand-drawn ring - length measured in JS so it always closes */
+  /* hand-drawn ring. Overhang kept small on the left so the first letter
+     is never sliced by the page gutter; length measured in JS so it closes. */
   .ring{position:relative;display:inline-block;white-space:nowrap}
   .ring svg{
-    position:absolute;left:-11%;top:-30%;width:122%;height:162%;
+    position:absolute;left:-5%;top:-36%;width:114%;height:178%;
     overflow:visible;pointer-events:none;
   }
   .ring svg path{
-    fill:none;stroke:var(--accent);stroke-width:6;
+    fill:none;stroke:var(--accent);stroke-width:7;
     stroke-linecap:round;stroke-linejoin:round;
   }
   .ring.go svg path{animation:draw 1.25s cubic-bezier(.5,.05,.25,1) forwards}
@@ -83,10 +101,24 @@
   }
   .lede{
     font-size:clamp(1.02rem,2.1vw,1.18rem);color:var(--muted);
-    margin:0 0 34px;max-width:54ch;
+    margin:0 0 20px;max-width:54ch;
   }
   .lede strong{color:var(--fg);font-weight:700}
+  .flip{
+    font-size:clamp(1.05rem,2.2vw,1.26rem);font-weight:700;color:var(--fg);
+    margin:0 0 34px;max-width:54ch;
+  }
+  .flip em{color:var(--accent);font-style:normal}
   .cta-row{display:flex;flex-wrap:wrap;gap:12px}
+  .microcopy{margin:14px 0 0;font-size:.85rem;color:var(--muted)}
+  /* closing call to action */
+  .final{border-top:1px solid var(--line);background:var(--bg);padding:84px 0;text-align:center}
+  .final h2{
+    margin:0 auto 16px;font-weight:900;letter-spacing:-.04em;line-height:1.02;
+    font-size:clamp(2rem,6vw,3.6rem);text-transform:uppercase;max-width:16ch;
+  }
+  .final p{margin:0 auto 28px;color:var(--muted);max-width:46ch;font-size:1.04rem}
+  .final .cta-row{justify-content:center}
   .btn{
     display:inline-flex;align-items:center;gap:9px;
     padding:13px 22px;border-radius:999px;text-decoration:none;
@@ -107,24 +139,26 @@
   .promise .mark{color:var(--accent);font-weight:900;margin-right:7px}
 
   /* ---------- definition ---------- */
-  .define{background:var(--bg);padding:70px 0;border-bottom:1px solid var(--line)}
+  .define{background:var(--bg);padding:68px 0;border-bottom:1px solid var(--line)}
   .define .term{font-weight:800;font-size:1.05rem;margin:0 0 10px}
   .define .term i{color:var(--muted);font-weight:500}
   .define p{margin:0;color:var(--muted);max-width:64ch;font-size:1.05rem}
   .define b{color:var(--fg);font-weight:700}
 
   /* ---------- sections ---------- */
-  section{padding:76px 0}
+  section{padding:74px 0;scroll-margin-top:70px}
+  .head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:26px}
   .kicker{font-size:11px;letter-spacing:.2em;text-transform:uppercase;
-    color:var(--muted);font-weight:700;margin:0 0 28px}
+    color:var(--muted);font-weight:700;margin:0}
+  .note{font-size:.85rem;color:var(--muted);margin:0}
   .grid{display:grid;gap:14px}
   @media(min-width:760px){ .grid{grid-template-columns:repeat(2,1fr)} }
   .card{
     background:var(--card);border:1px solid var(--line);border-radius:14px;
-    padding:26px;position:relative;overflow:hidden;
+    padding:26px;position:relative;
   }
   .card:hover{border-color:#343740}
-  .card h3{margin:0 0 9px;font-size:1.16rem;letter-spacing:-.015em;padding-right:92px}
+  .card h3{margin:0 0 9px;font-size:1.16rem;letter-spacing:-.015em;padding-right:96px}
   .card p{margin:0;color:var(--muted);font-size:.95rem}
   .tag{
     position:absolute;top:16px;right:16px;
@@ -135,6 +169,11 @@
   .card.lead{border-color:rgba(238,43,57,.45)}
   .card.lead .tag{color:var(--accent);border-color:rgba(238,43,57,.5)}
   .free{color:var(--accent);font-weight:700}
+  .empty{
+    border:1px dashed var(--line);border-radius:14px;padding:30px;
+    color:var(--muted);font-size:.95rem;background:transparent;
+  }
+  .empty b{color:var(--fg)}
 
   /* ---------- contact ---------- */
   .contact{border-top:1px solid var(--line);background:var(--bg-2)}
@@ -150,10 +189,14 @@
 <nav>
   <div class="nav-in">
     <a class="word" href="#top">NEXEDGE<b>.</b></a>
-    <div class="nav-links">
-      <a href="#work">What we make</a>
+    <div class="tabs">
+      <a class="on" href="#top">Home</a>
+      <a href="#resources">Resources</a>
+      <a href="#blog" class="soon">Blog</a>
+      <a href="#shop" class="soon">Shop</a>
       <a href="#contact">Contact</a>
     </div>
+    <!-- social icons go here once Paul supplies the real YouTube / Instagram URLs -->
   </div>
 </nav>
 
@@ -167,12 +210,16 @@
     <p class="lede">
       We hunt the best deals, test what is actually worth your money, and give
       our resources away <strong>free, with no subscriptions</strong>.
-      Everything is getting more expensive. We are going the other way.
+    </p>
+    <p class="flip">
+      While everything else keeps getting more expensive,
+      <em>we are heading the opposite direction.</em>
     </p>
     <div class="cta-row">
-      <a class="btn solid" href="#work">See what we make</a>
-      <a class="btn" href="mailto:contact@nexedgestudios.com">Get in touch</a>
+      <a class="btn solid" href="#resources">Get the free tools &rarr;</a>
+      <a class="btn" href="#blog">See what we are working on</a>
     </div>
+    <p class="microcopy">No sign-up. No email required. Nothing to cancel.</p>
   </header>
 </div>
 
@@ -207,26 +254,21 @@
 </div>
 
 <div class="wrap">
-  <section id="work">
-    <p class="kicker">What we make</p>
+
+  <section id="resources">
+    <div class="head">
+      <p class="kicker">Resources</p>
+      <p class="note">Free. No subscription, no account.</p>
+    </div>
     <div class="grid">
 
       <div class="card lead">
-        <span class="tag">Channel</span>
-        <h3>NexEdge Tech</h3>
+        <span class="tag">Download</span>
+        <h3>scrcpy Manager</h3>
         <p>
-          Reviews, deals and tutorials for people who want good tech without
-          overpaying. We dig into the settings and features nobody explains,
-          on hardware normal people can actually afford.
-        </p>
-      </div>
-
-      <div class="card">
-        <span class="tag">Education</span>
-        <h3>NexStudents</h3>
-        <p>
-          Tools for homeschool families, built from the day-to-day reality of
-          teaching at home. <span class="free">Free to use.</span>
+          Put your Android phone on your PC screen without touching the command
+          line. Wireless or cable, with recording that actually saves.
+          <span class="free">Free.</span>
         </p>
       </div>
 
@@ -240,17 +282,60 @@
       </div>
 
       <div class="card">
-        <span class="tag">Open source</span>
-        <h3>Tools we share</h3>
+        <span class="tag">Education</span>
+        <h3>NexStudents</h3>
         <p>
-          Utilities we needed and decided to give away, including scrcpy Manager
-          for putting an Android phone on your PC without the command line.
-          <span class="free">Free, no subscription.</span>
+          Tools for homeschool families, built from the day-to-day reality of
+          teaching at home rather than from a spec sheet.
+        </p>
+      </div>
+
+      <div class="card">
+        <span class="tag">Channel</span>
+        <h3>NexEdge Tech</h3>
+        <p>
+          Reviews, deals and tutorials for people who want good tech without
+          overpaying. The tech brand this whole thing grew out of.
         </p>
       </div>
 
     </div>
   </section>
+
+  <section id="blog">
+    <div class="head">
+      <p class="kicker">Blog</p>
+    </div>
+    <div class="empty">
+      <b>Coming soon.</b> Guides for the settings nobody explains properly, plus
+      the tech news worth knowing about, with the price and the catch stated up
+      front.
+    </div>
+  </section>
+
+  <section id="shop">
+    <div class="head">
+      <p class="kicker">Shop</p>
+    </div>
+    <div class="empty">
+      <b>Coming soon.</b> A small shop, kept to things we would actually
+      recommend to somebody on a budget.
+    </div>
+  </section>
+
+</div>
+
+<div class="final">
+  <div class="wrap">
+    <h2>Stop overpaying for tech.</h2>
+    <p>
+      Everything we make is free to use. Take what is useful, ignore the rest,
+      and keep your money.
+    </p>
+    <div class="cta-row">
+      <a class="btn solid" href="#resources">Get the free tools &rarr;</a>
+    </div>
+  </div>
 </div>
 
 <div class="contact" id="contact">
@@ -278,7 +363,7 @@
   document.getElementById('y').textContent = new Date().getFullYear();
 
   // Measure the real path length so the ring always closes fully.
-  // Hardcoding this (760) is what left the first version's circle unfinished.
+  // A hardcoded dash length is what left the first version's circle unfinished.
   (function(){
     var ring = document.getElementById('ring');
     if(!ring) return;
@@ -290,9 +375,28 @@
       path.style.strokeDashoffset = len;
       requestAnimationFrame(function(){ ring.classList.add('go'); });
     }
-    // wait for layout/fonts so the measured length is the final one
     if(document.readyState === 'complete'){ arm(); }
     else { window.addEventListener('load', arm); }
+  })();
+
+  // highlight the tab you are looking at
+  (function(){
+    var tabs = [].slice.call(document.querySelectorAll('.tabs a'));
+    var map = {};
+    tabs.forEach(function(a){ map[a.getAttribute('href')] = a; });
+    var targets = ['#top','#resources','#blog','#shop','#contact']
+      .map(function(id){ return document.querySelector(id); })
+      .filter(Boolean);
+    if(!('IntersectionObserver' in window)) return;
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(!e.isIntersecting) return;
+        tabs.forEach(function(a){ a.classList.remove('on'); });
+        var a = map['#' + e.target.id];
+        if(a) a.classList.add('on');
+      });
+    }, {rootMargin:'-45% 0px -50% 0px'});
+    targets.forEach(function(t){ io.observe(t); });
   })();
 </script>
 </body>
