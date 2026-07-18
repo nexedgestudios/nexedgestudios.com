@@ -4,18 +4,18 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>NexEdge Studios</title>
-<meta name="description" content="NexEdge Studios. Tech reviews, tutorials and small dependable software. Home of NexEdge Tech.">
-<meta name="theme-color" content="#08090b">
+<meta name="description" content="Tech you can afford. Honest reviews, the best deals, and free resources with no subscriptions. Home of NexEdge Tech.">
+<meta name="theme-color" content="#0a0a0b">
 <style>
   :root{
-    --bg:#08090b;
-    --bg-2:#0e1116;
-    --card:#111519;
-    --line:#1e242c;
-    --fg:#f4f6fa;
-    --muted:#8e99a8;
-    --accent:#4d8dff;
-    --accent-ink:#00060f;
+    --bg:#0a0a0b;        /* near black */
+    --bg-2:#121316;      /* dark gray */
+    --card:#17181b;
+    --line:#26282d;
+    --fg:#f5f6f7;
+    --muted:#93979e;
+    --accent:#ee2b39;    /* NexEdge red */
+    --accent-ink:#ffffff;
     --max:1120px;
   }
   *{box-sizing:border-box}
@@ -23,25 +23,22 @@
   body{
     margin:0;background:var(--bg);color:var(--fg);
     font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    -webkit-font-smoothing:antialiased;
-    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden;
   }
   .wrap{max-width:var(--max);margin:0 auto;padding:0 22px}
 
   /* ---------- nav ---------- */
   nav{
     position:sticky;top:0;z-index:50;
-    background:rgba(8,9,11,.82);backdrop-filter:blur(10px);
+    background:rgba(10,10,11,.84);backdrop-filter:blur(10px);
     border-bottom:1px solid var(--line);
   }
   .nav-in{
     max-width:var(--max);margin:0 auto;padding:14px 22px;
     display:flex;align-items:center;justify-content:space-between;gap:16px;
   }
-  .word{
-    font-weight:900;letter-spacing:-.045em;font-size:20px;
-    text-decoration:none;color:var(--fg);white-space:nowrap;
-  }
+  .word{font-weight:900;letter-spacing:-.045em;font-size:20px;
+    text-decoration:none;color:var(--fg);white-space:nowrap}
   .word b{color:var(--accent)}
   .nav-links{display:flex;gap:22px;align-items:center}
   .nav-links a{
@@ -52,10 +49,10 @@
   @media(max-width:720px){ .nav-links{display:none} }
 
   /* ---------- hero ---------- */
-  header{padding:110px 0 90px;position:relative;overflow:hidden}
+  header{padding:104px 0 84px;position:relative;overflow:hidden}
   header:before{
     content:"";position:absolute;inset:-40% -20% auto -20%;height:520px;
-    background:radial-gradient(60% 60% at 50% 40%, rgba(77,141,255,.16), transparent 70%);
+    background:radial-gradient(58% 58% at 50% 40%, rgba(238,43,57,.15), transparent 70%);
     pointer-events:none;
   }
   .eyebrow{
@@ -64,31 +61,31 @@
     color:var(--muted);font-weight:700;margin-bottom:26px;
   }
   .pip{width:7px;height:7px;border-radius:50%;background:var(--accent);
-    box-shadow:0 0 0 4px rgba(77,141,255,.18)}
+    box-shadow:0 0 0 4px rgba(238,43,57,.18)}
   h1{
-    margin:0 0 26px;font-weight:900;letter-spacing:-.04em;
-    font-size:clamp(2.6rem,8.2vw,5.6rem);line-height:.96;text-transform:uppercase;
-    position:relative;
+    margin:0 0 26px;font-weight:900;letter-spacing:-.045em;
+    font-size:clamp(2.9rem,10vw,6.4rem);line-height:.98;text-transform:uppercase;
   }
-  /* hand-drawn ring, Lepiten-style */
+  /* hand-drawn ring - length measured in JS so it always closes */
   .ring{position:relative;display:inline-block;white-space:nowrap}
   .ring svg{
-    position:absolute;left:-9%;top:-24%;width:118%;height:150%;
+    position:absolute;left:-11%;top:-30%;width:122%;height:162%;
     overflow:visible;pointer-events:none;
   }
   .ring svg path{
-    fill:none;stroke:var(--accent);stroke-width:5;stroke-linecap:round;
-    stroke-dasharray:760;stroke-dashoffset:760;
-    animation:draw 1.15s cubic-bezier(.55,.1,.3,1) .55s forwards;
+    fill:none;stroke:var(--accent);stroke-width:6;
+    stroke-linecap:round;stroke-linejoin:round;
   }
+  .ring.go svg path{animation:draw 1.25s cubic-bezier(.5,.05,.25,1) forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media(prefers-reduced-motion:reduce){
-    .ring svg path{animation:none;stroke-dashoffset:0}
+    .ring svg path{stroke-dashoffset:0 !important;animation:none !important}
   }
   .lede{
     font-size:clamp(1.02rem,2.1vw,1.18rem);color:var(--muted);
-    margin:0 0 34px;max-width:52ch;
+    margin:0 0 34px;max-width:54ch;
   }
+  .lede strong{color:var(--fg);font-weight:700}
   .cta-row{display:flex;flex-wrap:wrap;gap:12px}
   .btn{
     display:inline-flex;align-items:center;gap:9px;
@@ -98,32 +95,36 @@
   }
   .btn:hover{border-color:var(--accent)}
   .btn.solid{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
-  .btn.solid:hover{filter:brightness(1.08)}
+  .btn.solid:hover{filter:brightness(1.1)}
 
-  /* ---------- definition block ---------- */
-  .define{
-    border-top:1px solid var(--line);border-bottom:1px solid var(--line);
-    background:var(--bg-2);padding:66px 0;
-  }
+  /* ---------- promise strip ---------- */
+  .promise{border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    background:var(--bg-2);padding:34px 0}
+  .promise-grid{display:grid;gap:22px}
+  @media(min-width:760px){ .promise-grid{grid-template-columns:repeat(3,1fr)} }
+  .promise h4{margin:0 0 5px;font-size:.95rem;letter-spacing:-.01em}
+  .promise p{margin:0;color:var(--muted);font-size:.9rem}
+  .promise .mark{color:var(--accent);font-weight:900;margin-right:7px}
+
+  /* ---------- definition ---------- */
+  .define{background:var(--bg);padding:70px 0;border-bottom:1px solid var(--line)}
   .define .term{font-weight:800;font-size:1.05rem;margin:0 0 10px}
   .define .term i{color:var(--muted);font-weight:500}
-  .define p{margin:0;color:var(--muted);max-width:62ch;font-size:1.05rem}
+  .define p{margin:0;color:var(--muted);max-width:64ch;font-size:1.05rem}
   .define b{color:var(--fg);font-weight:700}
 
   /* ---------- sections ---------- */
-  section{padding:78px 0}
-  .kicker{
-    font-size:11px;letter-spacing:.2em;text-transform:uppercase;
-    color:var(--muted);font-weight:700;margin:0 0 28px;
-  }
+  section{padding:76px 0}
+  .kicker{font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--muted);font-weight:700;margin:0 0 28px}
   .grid{display:grid;gap:14px}
   @media(min-width:760px){ .grid{grid-template-columns:repeat(2,1fr)} }
   .card{
     background:var(--card);border:1px solid var(--line);border-radius:14px;
     padding:26px;position:relative;overflow:hidden;
   }
-  .card:hover{border-color:#2b3542}
-  .card h3{margin:0 0 9px;font-size:1.16rem;letter-spacing:-.015em}
+  .card:hover{border-color:#343740}
+  .card h3{margin:0 0 9px;font-size:1.16rem;letter-spacing:-.015em;padding-right:92px}
   .card p{margin:0;color:var(--muted);font-size:.95rem}
   .tag{
     position:absolute;top:16px;right:16px;
@@ -131,19 +132,17 @@
     color:var(--muted);border:1px solid var(--line);border-radius:999px;
     padding:4px 10px;font-weight:700;
   }
-  .card.lead{border-color:rgba(77,141,255,.4)}
-  .card.lead .tag{color:var(--accent);border-color:rgba(77,141,255,.45)}
+  .card.lead{border-color:rgba(238,43,57,.45)}
+  .card.lead .tag{color:var(--accent);border-color:rgba(238,43,57,.5)}
+  .free{color:var(--accent);font-weight:700}
 
   /* ---------- contact ---------- */
   .contact{border-top:1px solid var(--line);background:var(--bg-2)}
-  .contact h2{
-    margin:0 0 14px;font-size:clamp(1.8rem,5vw,2.8rem);
-    font-weight:900;letter-spacing:-.035em;text-transform:uppercase;line-height:1;
-  }
+  .contact h2{margin:0 0 14px;font-size:clamp(1.8rem,5vw,2.8rem);
+    font-weight:900;letter-spacing:-.035em;text-transform:uppercase;line-height:1}
 
   footer{padding:40px 0 70px;color:var(--muted);font-size:.85rem}
   footer p{margin:0 0 6px}
-  footer a{color:var(--muted)}
 </style>
 </head>
 <body>
@@ -159,39 +158,55 @@
 </nav>
 
 <div class="wrap" id="top">
-
   <header>
     <div class="eyebrow"><span class="pip"></span> NexEdge Studios</div>
     <h1>
-      We build things<br>that
-      <span class="ring">keep working<svg viewBox="0 0 620 130" preserveAspectRatio="none" aria-hidden="true"><path d="M312 12 C150 6 34 30 20 64 C8 96 132 120 306 120 C470 120 600 100 604 66 C608 34 486 12 300 14"/></svg></span>
+      Tech you can
+      <span class="ring" id="ring">afford<svg viewBox="0 0 600 150" preserveAspectRatio="none" aria-hidden="true"><path d="M300 20 C150 18 34 44 30 76 C26 110 158 132 306 132 C450 132 574 108 570 74 C566 44 452 18 292 18 C232 17 176 24 146 36"/></svg></span>
     </h1>
     <p class="lede">
-      Home of <strong>NexEdge Tech</strong>. We pull apart the hardware and the
-      settings nobody explains properly, and we build small, dependable software
-      that still runs years from now.
+      We hunt the best deals, test what is actually worth your money, and give
+      our resources away <strong>free, with no subscriptions</strong>.
+      Everything is getting more expensive. We are going the other way.
     </p>
     <div class="cta-row">
       <a class="btn solid" href="#work">See what we make</a>
       <a class="btn" href="mailto:contact@nexedgestudios.com">Get in touch</a>
     </div>
   </header>
+</div>
 
+<div class="promise">
+  <div class="wrap">
+    <div class="promise-grid">
+      <div>
+        <h4><span class="mark">01</span>Built for a budget</h4>
+        <p>The best tech you can get for the money, not the most expensive thing on the shelf.</p>
+      </div>
+      <div>
+        <h4><span class="mark">02</span>Free, no subscriptions</h4>
+        <p>Our tools and resources are given away. No paywall, no monthly fee, no account required.</p>
+      </div>
+      <div>
+        <h4><span class="mark">03</span>Honest about what it is</h4>
+        <p>If something is not worth buying, we say so. If the cheaper option wins, we say that too.</p>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class="define">
   <div class="wrap">
-    <p class="term">Edge <i>(n.) \'ej\</i></p>
+    <p class="term">Value <i>(n.) \'val-(,)yü\</i></p>
     <p>
-      The part most people skip. The setting buried four menus deep, the option
-      nobody documents, the small thing that makes the difference. <b>We go
-      looking for it.</b>
+      Not the cheapest thing on the shelf, and not the most expensive either. The
+      one that is actually worth what you paid for it. <b>We go looking for it,
+      so you do not have to.</b>
     </p>
   </div>
 </div>
 
 <div class="wrap">
-
   <section id="work">
     <p class="kicker">What we make</p>
     <div class="grid">
@@ -200,8 +215,9 @@
         <span class="tag">Channel</span>
         <h3>NexEdge Tech</h3>
         <p>
-          Reviews, tutorials and deep dives into the hardware and settings most
-          people never touch. The tech brand this whole thing grew out of.
+          Reviews, deals and tutorials for people who want good tech without
+          overpaying. We dig into the settings and features nobody explains,
+          on hardware normal people can actually afford.
         </p>
       </div>
 
@@ -210,7 +226,7 @@
         <h3>NexStudents</h3>
         <p>
           Tools for homeschool families, built from the day-to-day reality of
-          teaching at home rather than from a spec sheet.
+          teaching at home. <span class="free">Free to use.</span>
         </p>
       </div>
 
@@ -229,19 +245,20 @@
         <p>
           Utilities we needed and decided to give away, including scrcpy Manager
           for putting an Android phone on your PC without the command line.
+          <span class="free">Free, no subscription.</span>
         </p>
       </div>
 
     </div>
   </section>
-
 </div>
 
 <div class="contact" id="contact">
   <div class="wrap" style="padding-top:74px;padding-bottom:74px">
     <h2>Say hello.</h2>
     <p class="lede" style="margin-bottom:26px">
-      Questions, collaborations, or something you want us to take apart on camera.
+      Questions, collaborations, or something you want us to test so you do not
+      have to risk your own money on it.
     </p>
     <div class="cta-row">
       <a class="btn solid" href="mailto:contact@nexedgestudios.com">contact@nexedgestudios.com</a>
@@ -257,6 +274,26 @@
   </footer>
 </div>
 
-<script>document.getElementById('y').textContent=new Date().getFullYear();</script>
+<script>
+  document.getElementById('y').textContent = new Date().getFullYear();
+
+  // Measure the real path length so the ring always closes fully.
+  // Hardcoding this (760) is what left the first version's circle unfinished.
+  (function(){
+    var ring = document.getElementById('ring');
+    if(!ring) return;
+    var path = ring.querySelector('path');
+    if(!path || !path.getTotalLength) return;
+    function arm(){
+      var len = path.getTotalLength();
+      path.style.strokeDasharray  = len;
+      path.style.strokeDashoffset = len;
+      requestAnimationFrame(function(){ ring.classList.add('go'); });
+    }
+    // wait for layout/fonts so the measured length is the final one
+    if(document.readyState === 'complete'){ arm(); }
+    else { window.addEventListener('load', arm); }
+  })();
+</script>
 </body>
 </html>
