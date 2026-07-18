@@ -59,6 +59,9 @@ nav.top{position:sticky;top:0;z-index:60;
 .burger{margin-left:-10px;margin-right:4px;display:inline-flex;flex-direction:column;
   justify-content:center;gap:5px;width:44px;height:40px;padding:0 10px;
   background:none;border:0;cursor:pointer;z-index:80;flex:none}
+/* Desktop keeps the inline tabs, so the burger and slide-out are mobile only.
+   The 880px breakpoint below is where .tabs hides - these two must stay in sync. */
+@media(min-width:881px){ .burger{display:none} }
 .burger i{display:block;height:2px;background:var(--fg);border-radius:2px;
   transition:transform .35s cubic-bezier(.4,0,.2,1),opacity .25s}
 .burger i:nth-child(1){width:100%}
