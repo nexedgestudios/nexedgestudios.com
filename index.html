@@ -4,161 +4,400 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>NexEdge Studios</title>
-<meta name="description" content="NexEdge Studios builds tech content, homeschool tools and software. Parent company of NexEdge Tech and NexStudents.">
-<meta property="og:title" content="NexEdge Studios">
-<meta property="og:description" content="Tech content, homeschool tools and software.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://nexedgestudios.com/">
+<meta name="description" content="Tech you can afford. Honest reviews, the best deals, and free resources with no subscriptions. Home of NexEdge Tech.">
+<meta name="theme-color" content="#0a0a0b">
 <style>
-  /* System fonts only: nothing to load, nothing to break. */
   :root{
-    --bg:#ffffff; --fg:#14171c; --muted:#5b6472;
-    --card:#f6f7f9; --line:#e3e6ea; --accent:#0b6bcb; --accent-fg:#ffffff;
+    --bg:#0a0a0b;        /* near black */
+    --bg-2:#121316;      /* dark gray */
+    --card:#17181b;
+    --line:#26282d;
+    --fg:#f5f6f7;
+    --muted:#93979e;
+    --accent:#ee2b39;    /* NexEdge red */
+    --accent-ink:#ffffff;
+    --max:1120px;
+    --gutter:30px;       /* wide enough that the hand-drawn ring never clips */
   }
-  @media (prefers-color-scheme: dark){
-    :root{
-      --bg:#0d1117; --fg:#e8edf4; --muted:#98a3b3;
-      --card:#161b22; --line:#262d36; --accent:#4c9aff; --accent-fg:#0d1117;
-    }
-  }
-  :root[data-theme="dark"]{
-    --bg:#0d1117; --fg:#e8edf4; --muted:#98a3b3;
-    --card:#161b22; --line:#262d36; --accent:#4c9aff; --accent-fg:#0d1117;
-  }
-  :root[data-theme="light"]{
-    --bg:#ffffff; --fg:#14171c; --muted:#5b6472;
-    --card:#f6f7f9; --line:#e3e6ea; --accent:#0b6bcb; --accent-fg:#ffffff;
-  }
-
   *{box-sizing:border-box}
-  html,body{margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
   body{
-    background:var(--bg); color:var(--fg);
-    font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    -webkit-font-smoothing:antialiased;
+    margin:0;background:var(--bg);color:var(--fg);
+    font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden;
   }
-  .wrap{max-width:820px;margin:0 auto;padding:0 24px}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 var(--gutter)}
 
-  header{padding:96px 0 56px;border-bottom:1px solid var(--line)}
-  .mark{
-    display:inline-flex;align-items:center;gap:12px;
-    font-size:13px;letter-spacing:.14em;text-transform:uppercase;
-    color:var(--muted);margin-bottom:22px;
+  /* ---------- nav ---------- */
+  nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(10,10,11,.86);backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
   }
-  .dot{width:9px;height:9px;border-radius:50%;background:var(--accent);flex:none}
-  h1{font-size:clamp(2.1rem,6vw,3.4rem);line-height:1.1;margin:0 0 18px;letter-spacing:-.02em}
-  .lede{font-size:clamp(1.05rem,2.4vw,1.2rem);color:var(--muted);margin:0;max-width:56ch}
-
-  section{padding:56px 0;border-bottom:1px solid var(--line)}
-  h2{font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin:0 0 26px;font-weight:600}
-
-  .brands{display:grid;gap:16px}
-  @media(min-width:720px){ .brands{grid-template-columns:1fr 1fr} }
-  .brand{
-    background:var(--card);border:1px solid var(--line);border-radius:12px;
-    padding:24px;
+  .nav-in{
+    max-width:var(--max);margin:0 auto;padding:13px var(--gutter);
+    display:flex;align-items:center;gap:18px;
   }
-  .brand h3{margin:0 0 8px;font-size:1.12rem}
-  .brand p{margin:0;color:var(--muted);font-size:.95rem}
-  .brand .tag{
-    display:inline-block;margin-top:14px;font-size:.72rem;letter-spacing:.1em;
-    text-transform:uppercase;color:var(--muted);border:1px solid var(--line);
-    border-radius:999px;padding:3px 10px;
-  }
+  .word{font-weight:900;letter-spacing:-.045em;font-size:20px;
+    text-decoration:none;color:var(--fg);white-space:nowrap;margin-right:6px}
+  .word b{color:var(--accent)}
 
-  a{color:var(--accent)}
-  a:hover{text-decoration:none}
-  .links{display:flex;flex-wrap:wrap;gap:12px;margin-top:8px}
+  .tabs{display:flex;gap:4px;align-items:center;flex:1;overflow-x:auto;
+    scrollbar-width:none;-ms-overflow-style:none}
+  .tabs::-webkit-scrollbar{display:none}
+  .tabs a{
+    color:var(--muted);text-decoration:none;font-size:12px;
+    letter-spacing:.1em;text-transform:uppercase;font-weight:700;
+    padding:8px 11px;border-radius:8px;white-space:nowrap;
+  }
+  .tabs a:hover{color:var(--fg);background:#1a1c20}
+  .tabs a.on{color:var(--fg)}
+  .tabs a.soon{opacity:.55}
+  .tabs a.soon:after{content:" •";color:var(--accent)}
+
+  .social{display:flex;gap:6px;align-items:center;margin-left:auto}
+  .social a{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:34px;height:34px;border-radius:9px;border:1px solid var(--line);
+    color:var(--muted);background:var(--card);
+  }
+  .social a:hover{color:var(--fg);border-color:var(--accent)}
+  .social svg{width:17px;height:17px;fill:currentColor}
+  @media(max-width:860px){ .word{font-size:18px} .tabs a{padding:7px 8px;font-size:11px} }
+
+  /* ---------- hero ---------- */
+  header{padding:96px 0 80px;position:relative;overflow:visible}
+  header:before{
+    content:"";position:absolute;inset:-40% -20% auto -20%;height:520px;
+    background:radial-gradient(58% 58% at 50% 40%, rgba(238,43,57,.15), transparent 70%);
+    pointer-events:none;
+  }
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:9px;
+    font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--muted);font-weight:700;margin-bottom:26px;
+  }
+  .pip{width:7px;height:7px;border-radius:50%;background:var(--accent);
+    box-shadow:0 0 0 4px rgba(238,43,57,.18)}
+  h1{
+    margin:0 0 28px;font-weight:900;letter-spacing:-.045em;
+    font-size:clamp(2.8rem,9.4vw,6.2rem);line-height:1.02;text-transform:uppercase;
+  }
+  /* hand-drawn ring. Overhang kept small on the left so the first letter
+     is never sliced by the page gutter; length measured in JS so it closes. */
+  .ring{position:relative;display:inline-block;white-space:nowrap}
+  .ring svg{
+    position:absolute;left:-5%;top:-36%;width:114%;height:178%;
+    overflow:visible;pointer-events:none;
+  }
+  .ring svg path{
+    fill:none;stroke:var(--accent);stroke-width:7;
+    stroke-linecap:round;stroke-linejoin:round;
+  }
+  .ring.go svg path{animation:draw 1.25s cubic-bezier(.5,.05,.25,1) forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media(prefers-reduced-motion:reduce){
+    .ring svg path{stroke-dashoffset:0 !important;animation:none !important}
+  }
+  .lede{
+    font-size:clamp(1.02rem,2.1vw,1.18rem);color:var(--muted);
+    margin:0 0 20px;max-width:54ch;
+  }
+  .lede strong{color:var(--fg);font-weight:700}
+  .flip{
+    font-size:clamp(1.05rem,2.2vw,1.26rem);font-weight:700;color:var(--fg);
+    margin:0 0 34px;max-width:54ch;
+  }
+  .flip em{color:var(--accent);font-style:normal}
+  .cta-row{display:flex;flex-wrap:wrap;gap:12px}
+  .microcopy{margin:14px 0 0;font-size:.85rem;color:var(--muted)}
+  /* closing call to action */
+  .final{border-top:1px solid var(--line);background:var(--bg);padding:84px 0;text-align:center}
+  .final h2{
+    margin:0 auto 16px;font-weight:900;letter-spacing:-.04em;line-height:1.02;
+    font-size:clamp(2rem,6vw,3.6rem);text-transform:uppercase;max-width:16ch;
+  }
+  .final p{margin:0 auto 28px;color:var(--muted);max-width:46ch;font-size:1.04rem}
+  .final .cta-row{justify-content:center}
   .btn{
-    display:inline-block;padding:11px 18px;border-radius:9px;
-    border:1px solid var(--line);background:var(--card);
-    color:var(--fg);text-decoration:none;font-size:.94rem;
+    display:inline-flex;align-items:center;gap:9px;
+    padding:13px 22px;border-radius:999px;text-decoration:none;
+    font-weight:700;font-size:.94rem;border:1px solid var(--line);
+    color:var(--fg);background:var(--card);
   }
   .btn:hover{border-color:var(--accent)}
-  .btn.primary{background:var(--accent);color:var(--accent-fg);border-color:var(--accent)}
+  .btn.solid{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+  .btn.solid:hover{filter:brightness(1.1)}
 
-  footer{padding:40px 0 72px;color:var(--muted);font-size:.88rem}
+  /* ---------- promise strip ---------- */
+  .promise{border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    background:var(--bg-2);padding:34px 0}
+  .promise-grid{display:grid;gap:22px}
+  @media(min-width:760px){ .promise-grid{grid-template-columns:repeat(3,1fr)} }
+  .promise h4{margin:0 0 5px;font-size:.95rem;letter-spacing:-.01em}
+  .promise p{margin:0;color:var(--muted);font-size:.9rem}
+  .promise .mark{color:var(--accent);font-weight:900;margin-right:7px}
+
+  /* ---------- definition ---------- */
+  .define{background:var(--bg);padding:68px 0;border-bottom:1px solid var(--line)}
+  .define .term{font-weight:800;font-size:1.05rem;margin:0 0 10px}
+  .define .term i{color:var(--muted);font-weight:500}
+  .define p{margin:0;color:var(--muted);max-width:64ch;font-size:1.05rem}
+  .define b{color:var(--fg);font-weight:700}
+
+  /* ---------- sections ---------- */
+  section{padding:74px 0;scroll-margin-top:70px}
+  .head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:26px}
+  .kicker{font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--muted);font-weight:700;margin:0}
+  .note{font-size:.85rem;color:var(--muted);margin:0}
+  .grid{display:grid;gap:14px}
+  @media(min-width:760px){ .grid{grid-template-columns:repeat(2,1fr)} }
+  .card{
+    background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:26px;position:relative;
+  }
+  .card:hover{border-color:#343740}
+  .card h3{margin:0 0 9px;font-size:1.16rem;letter-spacing:-.015em;padding-right:96px}
+  .card p{margin:0;color:var(--muted);font-size:.95rem}
+  .tag{
+    position:absolute;top:16px;right:16px;
+    font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--muted);border:1px solid var(--line);border-radius:999px;
+    padding:4px 10px;font-weight:700;
+  }
+  .card.lead{border-color:rgba(238,43,57,.45)}
+  .card.lead .tag{color:var(--accent);border-color:rgba(238,43,57,.5)}
+  .free{color:var(--accent);font-weight:700}
+  .empty{
+    border:1px dashed var(--line);border-radius:14px;padding:30px;
+    color:var(--muted);font-size:.95rem;background:transparent;
+  }
+  .empty b{color:var(--fg)}
+
+  /* ---------- contact ---------- */
+  .contact{border-top:1px solid var(--line);background:var(--bg-2)}
+  .contact h2{margin:0 0 14px;font-size:clamp(1.8rem,5vw,2.8rem);
+    font-weight:900;letter-spacing:-.035em;text-transform:uppercase;line-height:1}
+
+  footer{padding:40px 0 70px;color:var(--muted);font-size:.85rem}
   footer p{margin:0 0 6px}
 </style>
 </head>
 <body>
 
+<nav>
+  <div class="nav-in">
+    <a class="word" href="#top">NEXEDGE<b>.</b></a>
+    <div class="tabs">
+      <a class="on" href="#top">Home</a>
+      <a href="#resources">Resources</a>
+      <a href="#blog" class="soon">Blog</a>
+      <a href="#shop" class="soon">Shop</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <!-- social icons go here once Paul supplies the real YouTube / Instagram URLs -->
+  </div>
+</nav>
+
+<div class="wrap" id="top">
+  <header>
+    <div class="eyebrow"><span class="pip"></span> NexEdge Studios</div>
+    <h1>
+      Tech you can
+      <span class="ring" id="ring">afford<svg viewBox="0 0 600 150" preserveAspectRatio="none" aria-hidden="true"><path d="M300 20 C150 18 34 44 30 76 C26 110 158 132 306 132 C450 132 574 108 570 74 C566 44 452 18 292 18 C232 17 176 24 146 36"/></svg></span>
+    </h1>
+    <p class="lede">
+      We hunt the best deals, test what is actually worth your money, and give
+      our resources away <strong>free, with no subscriptions</strong>.
+    </p>
+    <p class="flip">
+      While everything else keeps getting more expensive,
+      <em>we are heading the opposite direction.</em>
+    </p>
+    <div class="cta-row">
+      <a class="btn solid" href="#resources">Get the free tools &rarr;</a>
+      <a class="btn" href="#blog">See what we are working on</a>
+    </div>
+    <p class="microcopy">No sign-up. No email required. Nothing to cancel.</p>
+  </header>
+</div>
+
+<div class="promise">
+  <div class="wrap">
+    <div class="promise-grid">
+      <div>
+        <h4><span class="mark">01</span>Built for a budget</h4>
+        <p>The best tech you can get for the money, not the most expensive thing on the shelf.</p>
+      </div>
+      <div>
+        <h4><span class="mark">02</span>Free, no subscriptions</h4>
+        <p>Our tools and resources are given away. No paywall, no monthly fee, no account required.</p>
+      </div>
+      <div>
+        <h4><span class="mark">03</span>Honest about what it is</h4>
+        <p>If something is not worth buying, we say so. If the cheaper option wins, we say that too.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="define">
+  <div class="wrap">
+    <p class="term">Value <i>(n.) \'val-(,)yü\</i></p>
+    <p>
+      Not the cheapest thing on the shelf, and not the most expensive either. The
+      one that is actually worth what you paid for it. <b>We go looking for it,
+      so you do not have to.</b>
+    </p>
+  </div>
+</div>
+
 <div class="wrap">
 
-  <header>
-    <div class="mark"><span class="dot"></span> NexEdge Studios</div>
-    <h1>We build things that keep working.</h1>
-    <p class="lede">
-      NexEdge Studios makes tech content, homeschool tools and small, dependable
-      software. Everything here is built to be simple enough to still run years
-      from now.
-    </p>
-  </header>
+  <section id="resources">
+    <div class="head">
+      <p class="kicker">Resources</p>
+      <p class="note">Free. No subscription, no account.</p>
+    </div>
+    <div class="grid">
 
-  <section>
-    <h2>What we make</h2>
-    <div class="brands">
-
-      <div class="brand">
-        <h3>NexEdge Tech</h3>
+      <div class="card lead">
+        <span class="tag">Download</span>
+        <h3>scrcpy Manager</h3>
         <p>
-          Our tech brand. Reviews, tutorials and hands-on breakdowns of the
-          hardware and settings most people never dig into.
+          Put your Android phone on your PC screen without touching the command
+          line. Wireless or cable, with recording that actually saves.
+          <span class="free">Free.</span>
         </p>
-        <span class="tag">Content</span>
       </div>
 
-      <div class="brand">
-        <h3>NexStudents</h3>
-        <p>
-          Tools for homeschool families. Built from the day-to-day reality of
-          teaching at home, not from a spec sheet.
-        </p>
-        <span class="tag">Education</span>
-      </div>
-
-      <div class="brand">
+      <div class="card">
+        <span class="tag">App</span>
         <h3>MyWika</h3>
         <p>
           A language learning app built around flashcards you actually control,
-          with word parts, practice drills and streaks.
+          with word parts, practice drills and streaks that keep you honest.
         </p>
-        <span class="tag">App</span>
       </div>
 
-      <div class="brand">
-        <h3>Open source</h3>
+      <div class="card">
+        <span class="tag">Education</span>
+        <h3>NexStudents</h3>
         <p>
-          Small utilities we needed and decided to share, including scrcpy
-          Manager for mirroring an Android phone to a PC.
+          Tools for homeschool families, built from the day-to-day reality of
+          teaching at home rather than from a spec sheet.
         </p>
-        <span class="tag">Tools</span>
+      </div>
+
+      <div class="card">
+        <span class="tag">Channel</span>
+        <h3>NexEdge Tech</h3>
+        <p>
+          Reviews, deals and tutorials for people who want good tech without
+          overpaying. The tech brand this whole thing grew out of.
+        </p>
       </div>
 
     </div>
   </section>
 
-  <section>
-    <h2>Contact</h2>
-    <p class="lede" style="margin-bottom:20px">
-      Questions, collaboration or press, this reaches us directly.
+  <section id="blog">
+    <div class="head">
+      <p class="kicker">Blog</p>
+    </div>
+    <div class="empty">
+      <b>Coming soon.</b> Guides for the settings nobody explains properly, plus
+      the tech news worth knowing about, with the price and the catch stated up
+      front.
+    </div>
+  </section>
+
+  <section id="shop">
+    <div class="head">
+      <p class="kicker">Shop</p>
+    </div>
+    <div class="empty">
+      <b>Coming soon.</b> A small shop, kept to things we would actually
+      recommend to somebody on a budget.
+    </div>
+  </section>
+
+</div>
+
+<div class="final">
+  <div class="wrap">
+    <h2>Stop overpaying for tech.</h2>
+    <p>
+      Everything we make is free to use. Take what is useful, ignore the rest,
+      and keep your money.
     </p>
-    <div class="links">
-      <a class="btn primary" href="mailto:contact@nexedgestudios.com">contact@nexedgestudios.com</a>
+    <div class="cta-row">
+      <a class="btn solid" href="#resources">Get the free tools &rarr;</a>
+    </div>
+  </div>
+</div>
+
+<div class="contact" id="contact">
+  <div class="wrap" style="padding-top:74px;padding-bottom:74px">
+    <h2>Say hello.</h2>
+    <p class="lede" style="margin-bottom:26px">
+      Questions, collaborations, or something you want us to test so you do not
+      have to risk your own money on it.
+    </p>
+    <div class="cta-row">
+      <a class="btn solid" href="mailto:contact@nexedgestudios.com">contact@nexedgestudios.com</a>
       <a class="btn" href="https://github.com/nexedgestudios">GitHub</a>
     </div>
-  </section>
+  </div>
+</div>
 
+<div class="wrap">
   <footer>
     <p><strong>NexEdge Tech</strong> is the tech brand of NexEdge Studios.</p>
     <p>&copy; <span id="y">2026</span> NexEdge Studios. All rights reserved.</p>
   </footer>
-
 </div>
 
 <script>
   document.getElementById('y').textContent = new Date().getFullYear();
-</script>
 
+  // Measure the real path length so the ring always closes fully.
+  // A hardcoded dash length is what left the first version's circle unfinished.
+  (function(){
+    var ring = document.getElementById('ring');
+    if(!ring) return;
+    var path = ring.querySelector('path');
+    if(!path || !path.getTotalLength) return;
+    function arm(){
+      var len = path.getTotalLength();
+      path.style.strokeDasharray  = len;
+      path.style.strokeDashoffset = len;
+      requestAnimationFrame(function(){ ring.classList.add('go'); });
+    }
+    if(document.readyState === 'complete'){ arm(); }
+    else { window.addEventListener('load', arm); }
+  })();
+
+  // highlight the tab you are looking at
+  (function(){
+    var tabs = [].slice.call(document.querySelectorAll('.tabs a'));
+    var map = {};
+    tabs.forEach(function(a){ map[a.getAttribute('href')] = a; });
+    var targets = ['#top','#resources','#blog','#shop','#contact']
+      .map(function(id){ return document.querySelector(id); })
+      .filter(Boolean);
+    if(!('IntersectionObserver' in window)) return;
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(!e.isIntersecting) return;
+        tabs.forEach(function(a){ a.classList.remove('on'); });
+        var a = map['#' + e.target.id];
+        if(a) a.classList.add('on');
+      });
+    }, {rootMargin:'-45% 0px -50% 0px'});
+    targets.forEach(function(t){ io.observe(t); });
+  })();
+</script>
 </body>
 </html>
