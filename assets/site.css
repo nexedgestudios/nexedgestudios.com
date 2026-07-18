@@ -19,6 +19,10 @@
   --gutter:30px;
 }
 *{box-sizing:border-box}
+/* Any explicit display (flex/grid) beats the hidden attribute's default
+   display:none, so hidden elements would still show. This makes [hidden]
+   mean hidden, everywhere. */
+[hidden]{display:none !important}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
 @media(prefers-reduced-motion:reduce){ html{scroll-behavior:auto} }
 body{

@@ -80,6 +80,10 @@
         <span class="flabel">Category</span>
         <div id="catChips" class="frow"></div>
       </div>
+      <div class="frow" id="typeRow" hidden>
+        <span class="flabel">Type</span>
+        <div id="typeChips" class="frow"></div>
+      </div>
     </div>
 
     <div class="frow" id="viewRow" hidden style="margin-bottom:18px">
@@ -167,8 +171,10 @@
   var viewRow  = document.getElementById('viewRow');
   var vChart   = document.getElementById('vChart');
   var vCards   = document.getElementById('vCards');
+  var typeRow   = document.getElementById('typeRow');
+  var typeChips = document.getElementById('typeChips');
   var data = null;
-  var sel = { budget:'all', category:'all' };
+  var sel = { budget:'all', category:'all', type:'all' };
   var view = 'chart';
 
   function setView(v){
@@ -201,6 +207,8 @@
           'happening, email contact@nexedgestudios.com and we will fix it.');
     });
 
+  var WRAP_FOR = { budget:'budgetChips', category:'catChips', type:'typeChips' };
+
   function chip(label, group, value){
     var b = document.createElement('button');
     b.className = 'chip';
@@ -209,12 +217,26 @@
     b.setAttribute('aria-pressed', String(sel[group] === value));
     b.addEventListener('click', function(){
       sel[group] = value;
-      [].slice.call(document.querySelectorAll('#' + (group === 'budget' ? 'budgetChips' : 'catChips') + ' .chip'))
+      /* changing category invalidates whatever type was picked */
+      if(group === 'category'){ sel.type = 'all'; buildTypeChips(); }
+      [].slice.call(document.querySelectorAll('#' + WRAP_FOR[group] + ' .chip'))
         .forEach(function(c){ c.setAttribute('aria-pressed','false'); });
       b.setAttribute('aria-pressed','true');
       render();
     });
     return b;
+  }
+
+  /* The Type row only exists once a category is chosen, and only lists the
+     types that belong to that category. */
+  function buildTypeChips(){
+    typeChips.innerHTML = '';
+    if(sel.category === 'all'){ typeRow.hidden = true; return; }
+    var types = (data.types || []).filter(function(t){ return t.category === sel.category; });
+    if(!types.length){ typeRow.hidden = true; return; }
+    typeRow.hidden = false;
+    typeChips.appendChild(chip('All', 'type', 'all'));
+    types.forEach(function(t){ typeChips.appendChild(chip(t.label, 'type', t.id)); });
   }
 
   function buildChips(){
@@ -224,6 +246,7 @@
     (data.budgets || []).forEach(function(b){ bWrap.appendChild(chip(b.label, 'budget', b.id)); });
     cWrap.appendChild(chip('All', 'category', 'all'));
     (data.categories || []).forEach(function(c){ cWrap.appendChild(chip(c.label, 'category', c.id)); });
+    buildTypeChips();
   }
 
   function labelFor(list, id){
@@ -234,15 +257,20 @@
   /* Build one side-by-side chart per group. Spec rows are the UNION of every
      key across the products in that group, in first-seen order, so a spec one
      product has and another lacks still gets a row with a dash. */
+  function typeLabel(id){
+    var hit = (data.types || []).filter(function(t){ return t.id === id; })[0];
+    return hit ? hit.label : 'Comparison';
+  }
+
   function buildCharts(items){
     var groups = [];
     items.forEach(function(p){
-      var g = p.group || 'Comparison';
+      var g = p.type || 'other';
       if(groups.indexOf(g) === -1) groups.push(g);
     });
 
     groups.forEach(function(g){
-      var inGroup = items.filter(function(p){ return (p.group || 'Comparison') === g; });
+      var inGroup = items.filter(function(p){ return (p.type || 'other') === g; });
 
       var keys = [];
       inGroup.forEach(function(p){
@@ -254,7 +282,7 @@
       var wrap = document.createElement('div');
       wrap.className = 'chartwrap';
       var h = document.createElement('h3');
-      h.textContent = g;
+      h.textContent = typeLabel(g);
       wrap.appendChild(h);
 
       var scroll = document.createElement('div');
@@ -338,8 +366,9 @@
 
   function render(){
     var items = data.products.filter(function(p){
-      return (sel.budget === 'all' || p.budget === sel.budget) &&
-             (sel.category === 'all' || p.category === sel.category);
+      return (sel.budget === 'all'   || p.budget   === sel.budget) &&
+             (sel.category === 'all' || p.category === sel.category) &&
+             (sel.type === 'all'     || p.type     === sel.type);
     });
 
     listEl.innerHTML = '';

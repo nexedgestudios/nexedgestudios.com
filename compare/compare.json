@@ -44,21 +44,31 @@
     { "id": "capture",   "label": "Capture" }
   ],
 
+  "_types_note": "Types appear as a third filter row only once a category is picked. Each type belongs to one category. The label also titles the comparison chart.",
+
+  "types": [
+    { "id": "mmo",        "category": "mice", "label": "MMO Mice" },
+    { "id": "superlight", "category": "mice", "label": "Superlight" },
+    { "id": "ergonomic",  "category": "mice", "label": "Ergonomic" },
+    { "id": "gaming",     "category": "mice", "label": "Gaming" }
+  ],
+
   "products": [
     {
       "id": "redragon-m901k",
       "name": "Redragon M901K",
       "category": "mice",
-      "group": "MMO Mice",
+      "type": "mmo",
       "budget": "under100",
       "asin": "B0D3PNVQWK",
       "verdict": "",
       "specs": {
-        "Connection": "",
+        "Connection": "Wired",
         "Max DPI": "12,400",
         "Programmable buttons": "19",
         "Side buttons": "12",
-        "Battery life": "",
+        "Battery life": "N/A, wired",
+        "Sensor": "Optical",
         "Weight tuning": "8 x 2.4g",
         "Lighting": "RGB"
       }
@@ -67,7 +77,7 @@
       "id": "redragon-m908",
       "name": "Redragon M908 Impact",
       "category": "mice",
-      "group": "MMO Mice",
+      "type": "mmo",
       "budget": "under100",
       "asin": "B07HC4NBQ8",
       "verdict": "",
@@ -76,7 +86,7 @@
         "Max DPI": "12,400",
         "Programmable buttons": "18",
         "Side buttons": "12",
-        "Battery life": "",
+        "Battery life": "N/A, wired",
         "Sensor": "Optical",
         "Lighting": "RGB"
       }
@@ -85,16 +95,17 @@
       "id": "redragon-m901p-ks",
       "name": "Redragon M901P-KS",
       "category": "mice",
-      "group": "MMO Mice",
+      "type": "mmo",
       "budget": "under100",
       "asin": "B0CKN2NSYL",
       "verdict": "",
       "specs": {
-        "Connection": "Wireless",
+        "Connection": "Wireless (2.4GHz)",
         "Max DPI": "16,000",
         "Programmable buttons": "16",
         "Side buttons": "12",
         "Battery life": "70 hours",
+        "Sensor": "Optical",
         "Lighting": "RGB"
       }
     },
@@ -102,17 +113,20 @@
       "id": "utechsmart-venus",
       "name": "UtechSmart Venus",
       "category": "mice",
-      "group": "MMO Mice",
+      "type": "mmo",
       "budget": "under100",
       "asin": "B07XP4K152",
       "verdict": "",
       "specs": {
         "Connection": "Wired",
         "Max DPI": "16,400",
-        "Programmable buttons": "",
-        "Side buttons": "",
-        "Battery life": "",
-        "Sensor": "Laser",
+        "Programmable buttons": "18",
+        "Side buttons": "12",
+        "Battery life": "N/A, wired",
+        "Sensor": "Laser (Avago)",
+        "Switches": "Omron",
+        "Polling rate": "1,000Hz",
+        "Weight tuning": "8 x 2.4g",
         "Lighting": "RGB"
       }
     },
@@ -120,26 +134,28 @@
       "id": "razer-naga-v2-hyperspeed",
       "name": "Razer Naga V2 HyperSpeed",
       "category": "mice",
-      "group": "MMO Mice",
+      "type": "mmo",
       "budget": "100to200",
       "asin": "B0BGJT87N2",
       "verdict": "",
       "specs": {
-        "Connection": "Wireless",
-        "Max DPI": "",
+        "Connection": "Wireless (2.4GHz / Bluetooth)",
+        "Max DPI": "30,000",
         "Programmable buttons": "19",
         "Side buttons": "12",
         "Battery life": "Up to 400 hours",
-        "Sensor": "Focus Pro 30K optical",
+        "Sensor": "Razer Focus Pro 30K optical",
         "Switches": "Mechanical Gen-2",
-        "Scroll": "HyperScroll"
+        "Weight": "95g without battery",
+        "Scroll": "HyperScroll",
+        "Lighting": "None"
       }
     },
     {
       "id": "corsair-scimitar-elite-wireless-se",
       "name": "Corsair Scimitar Elite Wireless SE",
       "category": "mice",
-      "group": "MMO Mice",
+      "type": "mmo",
       "budget": "100to200",
       "asin": "B0F6NGCDFN",
       "verdict": "",
@@ -149,8 +165,11 @@
         "Programmable buttons": "16",
         "Side buttons": "12",
         "Battery life": "Up to 150 hours",
+        "Sensor": "Corsair Marksman S optical",
         "Polling rate": "1,000Hz",
-        "Key slider": "Yes"
+        "Weight": "114g",
+        "Key slider": "Yes",
+        "Lighting": "RGB, 2 zones"
       }
     }
   ]
