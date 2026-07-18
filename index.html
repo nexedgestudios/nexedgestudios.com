@@ -68,7 +68,67 @@
   .tabs a.on{color:var(--fg)}
   .tabs a.soon{opacity:.5}
   .tabs a.soon:after{content:" •";color:var(--accent)}
-  @media(max-width:880px){ .word{font-size:18px} .tabs a{padding:7px 8px;font-size:11px} }
+  @media(max-width:880px){ .word{font-size:18px} }
+  /* inline tabs give way to the slide-out on small screens */
+  @media(max-width:880px){ .tabs{display:none} }
+
+  /* ---------- burger + slide-out panel ----------
+     Behaviour lifted from the Squarespace plugin spec: slides from the
+     right, 600px max width, 600ms cubic-bezier(.4,0,.2,1), full width on
+     phones. Rebuilt natively - the original was LESS against Squarespace
+     markup and could not be used directly. */
+  .burger{
+    margin-left:auto;display:inline-flex;flex-direction:column;justify-content:center;
+    gap:5px;width:44px;height:40px;padding:0 10px;background:none;border:0;
+    cursor:pointer;z-index:80;
+  }
+  .burger i{display:block;height:2px;background:var(--fg);border-radius:2px;
+    transition:transform .35s cubic-bezier(.4,0,.2,1),opacity .25s}
+  .burger i:nth-child(1){width:100%}
+  .burger i:nth-child(2){width:70%;align-self:flex-end}
+  .burger i:nth-child(3){width:85%;align-self:flex-end}
+  body.panel-open .burger i:nth-child(1){transform:translateY(7px) rotate(45deg);width:100%}
+  body.panel-open .burger i:nth-child(2){opacity:0}
+  body.panel-open .burger i:nth-child(3){transform:translateY(-7px) rotate(-45deg);width:100%}
+
+  .scrim{
+    position:fixed;inset:0;background:rgba(4,5,8,.62);backdrop-filter:blur(2px);
+    opacity:0;visibility:hidden;z-index:70;
+    transition:opacity 400ms cubic-bezier(.4,0,.2,1),visibility 400ms;
+  }
+  body.panel-open .scrim{opacity:1;visibility:visible}
+
+  .panel{
+    position:fixed;top:0;right:0;height:100dvh;width:100%;max-width:600px;
+    background:var(--bg-2);border-left:1px solid var(--line);z-index:75;
+    transform:translateX(100%);
+    transition:transform 600ms cubic-bezier(.4,0,.2,1);
+    display:flex;flex-direction:column;
+    padding:0 calc(6vw + 20px);overflow-y:auto;overscroll-behavior:contain;
+  }
+  body.panel-open .panel{transform:translateX(0)}
+  @media(prefers-reduced-motion:reduce){
+    .panel{transition:none} .scrim{transition:none}
+  }
+  .panel-top{display:flex;align-items:center;justify-content:space-between;
+    padding:22px 0 10px;margin-bottom:14px}
+  .panel-close{background:none;border:0;color:var(--muted);cursor:pointer;
+    font-size:26px;line-height:1;padding:6px 10px;border-radius:8px}
+  .panel-close:hover{color:var(--fg);background:#191d26}
+  .panel nav{position:static;background:none;border:0;backdrop-filter:none}
+  .panel a.pl{
+    display:block;text-decoration:none;color:var(--fg);
+    font-weight:800;letter-spacing:-.02em;font-size:clamp(1.5rem,5vw,2.1rem);
+    padding:30px 0;border-bottom:1px solid var(--line);
+    transition:color .2s,padding-left .3s cubic-bezier(.4,0,.2,1);
+  }
+  .panel a.pl:hover{color:var(--accent);padding-left:10px}
+  .panel a.pl small{display:block;font-size:.72rem;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--muted);font-weight:700;margin-top:8px}
+  .panel a.pl .pdot{color:var(--accent);font-size:1rem;vertical-align:middle}
+  .panel-foot{margin-top:auto;padding:30px 0 40px}
+  .panel-foot .btn{width:100%;justify-content:center}
+  .panel-foot p{margin:14px 0 0;color:var(--muted);font-size:.84rem;text-align:center}
 
   /* ---------- hero ---------- */
   header{padding:104px 0 88px;position:relative}
@@ -201,6 +261,8 @@
   .fbot{border-top:1px solid var(--line);padding:22px 0 40px;display:flex;
     justify-content:space-between;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:.84rem}
   .tm{font-size:.62em;vertical-align:super;line-height:0;margin-left:1px;letter-spacing:.02em}
+  .copy-link{color:var(--muted);text-decoration:none;transition:color .2s}
+  .copy-link:hover{color:var(--fg)}
 </style>
 </head>
 <body>
@@ -217,8 +279,32 @@
       <a href="#contact">Contact</a>
     </div>
     <!-- social icons drop in here once Paul supplies the real YouTube / Instagram URLs -->
+    <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="panel">
+      <i></i><i></i><i></i>
+    </button>
   </div>
 </nav>
+
+<div class="scrim" id="scrim" hidden></div>
+
+<aside class="panel" id="panel" aria-hidden="true" aria-label="Menu">
+  <div class="panel-top">
+    <span class="word">NEXEDGE<b>.</b></span>
+    <button class="panel-close" id="panelClose" aria-label="Close menu">&times;</button>
+  </div>
+
+  <a class="pl" href="#top">Home</a>
+  <a class="pl" href="#value">Why us<small>How we pick what is worth it</small></a>
+  <a class="pl" href="#resources">Resources<small>Free tools and downloads</small></a>
+  <a class="pl" href="#blog">Blog <span class="pdot">&bull;</span><small>Coming soon</small></a>
+  <a class="pl" href="#shop">Shop <span class="pdot">&bull;</span><small>Coming soon</small></a>
+  <a class="pl" href="#contact">Contact</a>
+
+  <div class="panel-foot">
+    <a class="btn solid" href="mailto:contact@nexedgestudios.com">contact@nexedgestudios.com</a>
+    <p>No sign-up. No email required.</p>
+  </div>
+</aside>
 
 <div class="wrap" id="top">
   <header>
@@ -451,8 +537,10 @@
     <div class="fbot">
       <p style="margin:0"><strong>NexEdge Tech</strong> is the tech brand of NexEdge Studios.</p>
       <p style="margin:0">
-        &copy; <span id="y">2026</span> NexEdge Studios<sup class="tm">&trade;</sup>.
-        All rights reserved.
+        <a href="/copyright/" class="copy-link">
+          &copy; <span id="y">2026</span> NexEdge Studios<sup class="tm">&trade;</sup>.
+          All rights reserved.
+        </a>
       </p>
     </div>
   </div>
@@ -505,6 +593,64 @@
         btn.style.transform = 'translate(' + (x*0.14) + 'px,' + (y*0.24) + 'px)';
       });
       btn.addEventListener('mouseleave', function(){ btn.style.transform = ''; });
+    });
+  })();
+
+  /* Slide-out panel. Closes on link click, Esc, scrim click, and traps
+     focus while open so keyboard users cannot tab behind it. */
+  (function(){
+    var burger = document.getElementById('burger');
+    var panel  = document.getElementById('panel');
+    var scrim  = document.getElementById('scrim');
+    var close  = document.getElementById('panelClose');
+    if(!burger || !panel || !scrim) return;
+    var lastFocus = null;
+
+    function open(){
+      lastFocus = document.activeElement;
+      scrim.hidden = false;
+      document.body.classList.add('panel-open');
+      document.body.style.overflow = 'hidden';
+      burger.setAttribute('aria-expanded','true');
+      panel.setAttribute('aria-hidden','false');
+      var first = panel.querySelector('a,button');
+      if(first) first.focus();
+    }
+    function shut(){
+      document.body.classList.remove('panel-open');
+      document.body.style.overflow = '';
+      burger.setAttribute('aria-expanded','false');
+      panel.setAttribute('aria-hidden','true');
+      setTimeout(function(){ if(!document.body.classList.contains('panel-open')) scrim.hidden = true; }, 600);
+      if(lastFocus) lastFocus.focus();
+    }
+    function toggle(){
+      document.body.classList.contains('panel-open') ? shut() : open();
+    }
+
+    burger.addEventListener('click', toggle);
+    close.addEventListener('click', shut);
+    scrim.addEventListener('click', shut);
+    panel.addEventListener('click', function(e){
+      if(e.target.closest('a')) shut();
+    });
+    // close on scroll, but ignore scrolling INSIDE the panel itself
+    var lastY = window.scrollY;
+    window.addEventListener('scroll', function(){
+      if(!document.body.classList.contains('panel-open')) return;
+      if(Math.abs(window.scrollY - lastY) > 4) shut();
+      lastY = window.scrollY;
+    }, {passive:true});
+
+    document.addEventListener('keydown', function(e){
+      if(!document.body.classList.contains('panel-open')) return;
+      if(e.key === 'Escape'){ shut(); return; }
+      if(e.key !== 'Tab') return;
+      var f = panel.querySelectorAll('a[href],button');
+      if(!f.length) return;
+      var first = f[0], last = f[f.length-1];
+      if(e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+      else if(!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
     });
   })();
 
