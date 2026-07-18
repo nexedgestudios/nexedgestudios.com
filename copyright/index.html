@@ -31,8 +31,18 @@
   .nav-in{max-width:1180px;margin:0 auto;padding:13px var(--gutter);
     display:flex;align-items:center;justify-content:space-between;gap:16px}
   .word{font-weight:900;letter-spacing:-.045em;font-size:20px;
-    text-decoration:none;color:var(--fg)}
+    text-decoration:none;color:var(--fg);
+    display:inline-flex;align-items:center;gap:9px}
   .word b{color:var(--accent)}
+  .word img{width:26px;height:26px;display:block;flex:none}
+  /* this page has its own stylesheet, so the social rules live here too */
+  .social{display:flex;gap:6px;align-items:center;flex:none}
+  .social a{display:inline-flex;align-items:center;justify-content:center;
+    width:34px;height:34px;border-radius:9px;border:1px solid var(--line);
+    color:var(--muted);background:var(--card);
+    transition:color .2s,border-color .2s,transform .18s ease-out}
+  .social a:hover{color:var(--fg);border-color:var(--accent);transform:translateY(-1px)}
+  .social svg{width:17px;height:17px;fill:currentColor;display:block}
   .back{color:var(--muted);text-decoration:none;font-size:12px;
     letter-spacing:.1em;text-transform:uppercase;font-weight:700}
   .back:hover{color:var(--fg)}
@@ -65,7 +75,7 @@
 
 <nav>
   <div class="nav-in">
-    <a class="word" href="/">NEXEDGE<b> TECH</b></a>
+    <a class="word" href="/"><img src="/assets/brand/net-logo.png" alt="" aria-hidden="true">NEXEDGE<b> TECH</b></a>
     <a class="back" href="/">&larr; Back to site</a>
     <div class="social">
       <a href="https://www.youtube.com/@NexEdgeTech" target="_blank" rel="noopener" aria-label="NexEdge Tech on YouTube" title="YouTube">
@@ -196,6 +206,7 @@
 </script>
 </body>
 </html>
+
 
 
 

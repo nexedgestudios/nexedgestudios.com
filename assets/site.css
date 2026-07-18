@@ -47,8 +47,13 @@ nav.top{position:sticky;top:0;z-index:60;
 .nav-in{max-width:var(--max);margin:0 auto;padding:13px var(--gutter);
   display:flex;align-items:center;gap:16px}
 .word{font-weight:900;letter-spacing:-.045em;font-size:20px;
-  text-decoration:none;white-space:nowrap;margin-right:4px}
+  text-decoration:none;white-space:nowrap;margin-right:4px;
+  display:inline-flex;align-items:center;gap:9px}
 .word b{color:var(--accent)}
+/* The logo is transparent on purpose, so it sits on whatever is behind it. */
+.word img{width:26px;height:26px;display:block;flex:none}
+.fbrand .word img{width:32px;height:32px}
+.panel-top .word img{width:24px;height:24px}
 /* On mobile the wordmark centres itself regardless of the burger's width.
    Absolute centring beats flex here - it stays dead centre even though the
    burger sits on the left and there is nothing on the right. */
