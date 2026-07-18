@@ -3,285 +3,30 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>NexEdge Studios | Tech you can afford</title>
-<meta name="description" content="Tech you can afford. Honest reviews, the best deals, and free resources with no subscriptions. Home of NexEdge Tech.">
+<title>NexEdge Studios | Gear that fits your budget</title>
+<meta name="description" content="Value gaming and streaming gear, budget PC builds, and honest comparisons that match the kit to your budget. Home of NexEdge Tech.">
 <meta name="theme-color" content="#0b0d12">
-<meta property="og:title" content="NexEdge Studios | Tech you can afford">
-<meta property="og:description" content="While everything else keeps getting more expensive, we are heading the opposite direction.">
+<meta property="og:title" content="NexEdge Studios | Gear that fits your budget">
+<meta property="og:description" content="Value gaming and streaming gear, budget PC builds, and honest comparisons.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://nexedgestudios.com/">
-<style>
-  /* ------------------------------------------------------------------
-     Everything is in this one file on purpose: no Tailwind CDN, no
-     Google Fonts, no icon font, no external images. The whole page is
-     ~18 KB and makes zero outside requests, so nothing can break later
-     and nothing can slow it down.
-     ------------------------------------------------------------------ */
-  :root{
-    --bg:#0b0d12;            /* near black with a faint cool cast */
-    --bg-2:#10131a;
-    --bg-3:#080a0e;
-    --card:rgba(19,23,31,.82);
-    --line:#232833;
-    --line-2:#2e343f;
-    --fg:#eef1f6;
-    --muted:#8b93a1;
-    --accent:#ee2b39;        /* NexEdge red */
-    --accent-soft:rgba(238,43,57,.14);
-    --accent-ink:#ffffff;
-    --max:1180px;
-    --gutter:30px;
-  }
-  *{box-sizing:border-box}
-  html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
-  @media(prefers-reduced-motion:reduce){ html{scroll-behavior:auto} }
-  body{
-    margin:0;background:var(--bg);color:var(--fg);
-    font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    -webkit-font-smoothing:antialiased;overflow-x:hidden;
-  }
-  .wrap{max-width:var(--max);margin:0 auto;padding:0 var(--gutter)}
-  a{color:inherit}
-
-  /* ---------- reveal on scroll ---------- */
-  .reveal{opacity:0;transform:translateY(26px);
-    transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
-  .reveal.in{opacity:1;transform:none}
-  @media(prefers-reduced-motion:reduce){ .reveal{opacity:1;transform:none;transition:none} }
-
-  /* ---------- nav ---------- */
-  nav{position:sticky;top:0;z-index:60;
-    background:rgba(11,13,18,.86);backdrop-filter:blur(12px);
-    border-bottom:1px solid var(--line)}
-  .nav-in{max-width:var(--max);margin:0 auto;padding:13px var(--gutter);
-    display:flex;align-items:center;gap:16px}
-  .word{font-weight:900;letter-spacing:-.045em;font-size:20px;
-    text-decoration:none;white-space:nowrap;margin-right:4px}
-  .word b{color:var(--accent)}
-  .tabs{display:flex;gap:2px;align-items:center;flex:1;overflow-x:auto;
-    scrollbar-width:none;-ms-overflow-style:none}
-  .tabs::-webkit-scrollbar{display:none}
-  .tabs a{color:var(--muted);text-decoration:none;font-size:12px;
-    letter-spacing:.1em;text-transform:uppercase;font-weight:700;
-    padding:8px 11px;border-radius:8px;white-space:nowrap;transition:color .2s,background .2s}
-  .tabs a:hover{color:var(--fg);background:#171b23}
-  .tabs a.on{color:var(--fg)}
-  .tabs a.soon{opacity:.5}
-  .tabs a.soon:after{content:" •";color:var(--accent)}
-  @media(max-width:880px){ .word{font-size:18px} }
-  /* inline tabs give way to the slide-out on small screens */
-  @media(max-width:880px){ .tabs{display:none} }
-
-  /* ---------- burger + slide-out panel ----------
-     Behaviour lifted from the Squarespace plugin spec: slides from the
-     right, 600px max width, 600ms cubic-bezier(.4,0,.2,1), full width on
-     phones. Rebuilt natively - the original was LESS against Squarespace
-     markup and could not be used directly. */
-  .burger{
-    margin-left:-10px;margin-right:4px;display:inline-flex;flex-direction:column;
-    justify-content:center;gap:5px;width:44px;height:40px;padding:0 10px;
-    background:none;border:0;cursor:pointer;z-index:80;flex:none;
-  }
-  .burger i{display:block;height:2px;background:var(--fg);border-radius:2px;
-    transition:transform .35s cubic-bezier(.4,0,.2,1),opacity .25s}
-  .burger i:nth-child(1){width:100%}
-  .burger i:nth-child(2){width:70%;align-self:flex-end}
-  .burger i:nth-child(3){width:85%;align-self:flex-end}
-  body.panel-open .burger i:nth-child(1){transform:translateY(7px) rotate(45deg);width:100%}
-  body.panel-open .burger i:nth-child(2){opacity:0}
-  body.panel-open .burger i:nth-child(3){transform:translateY(-7px) rotate(-45deg);width:100%}
-
-  .scrim{
-    position:fixed;inset:0;background:rgba(4,5,8,.62);backdrop-filter:blur(2px);
-    opacity:0;visibility:hidden;z-index:70;
-    transition:opacity 400ms cubic-bezier(.4,0,.2,1),visibility 400ms;
-  }
-  body.panel-open .scrim{opacity:1;visibility:visible}
-
-  .panel{
-    position:fixed;top:0;left:0;height:100dvh;width:100%;max-width:600px;
-    background:var(--bg-2);border-right:1px solid var(--line);z-index:75;
-    transform:translateX(-100%);
-    transition:transform 600ms cubic-bezier(.4,0,.2,1);
-    display:flex;flex-direction:column;
-    padding:0 calc(6vw + 20px);overflow-y:auto;overscroll-behavior:contain;
-  }
-  body.panel-open .panel{transform:translateX(0)}
-  @media(prefers-reduced-motion:reduce){
-    .panel{transition:none} .scrim{transition:none}
-  }
-  .panel-top{display:flex;align-items:center;justify-content:space-between;
-    padding:22px 0 10px;margin-bottom:14px}
-  .panel-close{background:none;border:0;color:var(--muted);cursor:pointer;
-    font-size:26px;line-height:1;padding:6px 10px;border-radius:8px}
-  .panel-close:hover{color:var(--fg);background:#191d26}
-  .panel nav{position:static;background:none;border:0;backdrop-filter:none}
-  .panel a.pl{
-    display:block;text-decoration:none;color:var(--fg);
-    font-weight:800;letter-spacing:-.02em;font-size:clamp(1.5rem,5vw,2.1rem);
-    padding:30px 0;border-bottom:1px solid var(--line);
-    transition:color .2s,padding-left .3s cubic-bezier(.4,0,.2,1);
-  }
-  .panel a.pl:hover{color:var(--accent);padding-left:10px}
-  .panel a.pl small{display:block;font-size:.72rem;letter-spacing:.16em;
-    text-transform:uppercase;color:var(--muted);font-weight:700;margin-top:8px}
-  .panel a.pl .pdot{color:var(--accent);font-size:1rem;vertical-align:middle}
-  .panel-foot{margin-top:auto;padding:30px 0 40px}
-  .panel-foot .btn{width:100%;justify-content:center}
-  .panel-foot p{margin:14px 0 0;color:var(--muted);font-size:.84rem;text-align:center}
-
-  /* ---------- hero ---------- */
-  header{padding:104px 0 88px;position:relative}
-  header:before{content:"";position:absolute;inset:-45% -20% auto -20%;height:560px;
-    background:radial-gradient(56% 56% at 46% 40%, var(--accent-soft), transparent 70%);
-    pointer-events:none}
-  .status{display:inline-flex;align-items:center;gap:11px;margin-bottom:26px}
-  .dot{width:8px;height:8px;border-radius:50%;background:var(--accent);animation:pulse 2.4s infinite}
-  @keyframes pulse{
-    0%{box-shadow:0 0 0 0 rgba(238,43,57,.6)}
-    70%{box-shadow:0 0 0 11px rgba(238,43,57,0)}
-    100%{box-shadow:0 0 0 0 rgba(238,43,57,0)}
-  }
-  @media(prefers-reduced-motion:reduce){ .dot{animation:none} }
-  .status span{font-size:11px;letter-spacing:.22em;text-transform:uppercase;
-    color:var(--muted);font-weight:700}
-  h1{margin:0 0 28px;font-weight:900;letter-spacing:-.045em;
-    font-size:clamp(2.8rem,9.4vw,6.2rem);line-height:1.02;text-transform:uppercase}
-  /* hand-drawn ring: length measured in JS so it always closes,
-     small left overhang so the first letter never gets clipped */
-  .ring{position:relative;display:inline-block;white-space:nowrap}
-  .ring svg{position:absolute;left:-5%;top:-36%;width:114%;height:178%;
-    overflow:visible;pointer-events:none}
-  .ring svg path{fill:none;stroke:var(--accent);stroke-width:7;
-    stroke-linecap:round;stroke-linejoin:round}
-  .ring.go svg path{animation:draw 1.25s cubic-bezier(.5,.05,.25,1) forwards}
-  @keyframes draw{to{stroke-dashoffset:0}}
-  @media(prefers-reduced-motion:reduce){
-    .ring svg path{stroke-dashoffset:0 !important;animation:none !important} }
-  .lede{font-size:clamp(1.02rem,2.1vw,1.18rem);color:var(--muted);
-    margin:0 0 18px;max-width:54ch}
-  .lede strong{color:var(--fg);font-weight:700}
-  .flip{font-size:clamp(1.05rem,2.2vw,1.28rem);font-weight:700;color:var(--fg);
-    margin:0 0 34px;max-width:54ch}
-  .flip em{color:var(--accent);font-style:normal}
-  .cta-row{display:flex;flex-wrap:wrap;gap:12px}
-  .btn{display:inline-flex;align-items:center;gap:9px;
-    padding:14px 24px;border-radius:999px;text-decoration:none;
-    font-weight:700;font-size:.94rem;border:1px solid var(--line-2);
-    color:var(--fg);background:var(--card);
-    transition:transform .18s ease-out,border-color .2s,filter .2s}
-  .btn:hover{border-color:var(--accent)}
-  .btn.solid{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
-  .btn.solid:hover{filter:brightness(1.1)}
-  .microcopy{margin:15px 0 0;font-size:.86rem;color:var(--muted)}
-
-  /* ---------- section furniture ---------- */
-  section{padding:88px 0;scroll-margin-top:72px}
-  .head{display:flex;align-items:flex-end;justify-content:space-between;
-    gap:22px;margin-bottom:34px;flex-wrap:wrap}
-  .kicker{font-size:11px;letter-spacing:.2em;text-transform:uppercase;
-    color:var(--muted);font-weight:700;margin:0 0 10px}
-  .h2{margin:0;font-weight:900;letter-spacing:-.035em;line-height:1.05;
-    font-size:clamp(1.7rem,4.4vw,2.7rem)}
-  .sub{margin:12px 0 0;color:var(--muted);max-width:56ch}
-  .note{font-size:.85rem;color:var(--muted);margin:0}
-
-  /* ---------- bento ---------- */
-  .bento{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}
-  .cell{grid-column:span 12;background:var(--card);border:1px solid var(--line);
-    border-radius:16px;padding:30px;position:relative;
-    transition:border-color .3s,box-shadow .3s}
-  .cell:hover{border-color:var(--accent);box-shadow:0 0 34px rgba(238,43,57,.13)}
-  @media(min-width:840px){
-    .cell.w8{grid-column:span 8}
-    .cell.w4{grid-column:span 4}
-    .cell.w6{grid-column:span 6}
-  }
-  .ic{width:52px;height:52px;border-radius:12px;display:flex;align-items:center;
-    justify-content:center;border:1px solid var(--accent);color:var(--accent);
-    margin-bottom:20px;transition:background .35s,color .35s}
-  .cell:hover .ic{background:var(--accent);color:var(--accent-ink)}
-  .ic svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;
-    stroke-linecap:round;stroke-linejoin:round}
-  .cell h3{margin:0 0 10px;font-size:1.24rem;letter-spacing:-.02em}
-  .cell p{margin:0;color:var(--muted);font-size:.96rem;max-width:46ch}
-  .ticks{list-style:none;margin:20px 0 0;padding:0;display:grid;gap:10px}
-  .ticks li{display:flex;align-items:center;gap:10px;font-size:.85rem;
-    letter-spacing:.06em;text-transform:uppercase;font-weight:600;color:var(--fg)}
-  .ticks i{width:6px;height:6px;background:var(--accent);border-radius:2px;flex:none}
-
-  /* ---------- resources ---------- */
-  .grid2{display:grid;gap:14px}
-  @media(min-width:820px){ .grid2{grid-template-columns:repeat(2,1fr)} }
-  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;
-    padding:28px;position:relative;transition:border-color .3s}
-  .card:hover{border-color:var(--line-2)}
-  .card h3{margin:0 0 10px;font-size:1.14rem;letter-spacing:-.015em;padding-right:96px}
-  .card p{margin:0;color:var(--muted);font-size:.95rem}
-  .tag{position:absolute;top:18px;right:18px;font-size:10px;letter-spacing:.14em;
-    text-transform:uppercase;color:var(--muted);border:1px solid var(--line);
-    border-radius:999px;padding:4px 10px;font-weight:700}
-  .card.lead{border-color:rgba(238,43,57,.45)}
-  .card.lead .tag{color:var(--accent);border-color:rgba(238,43,57,.5)}
-  .free{color:var(--accent);font-weight:700}
-  .empty{border:1px dashed var(--line-2);border-radius:16px;padding:32px;
-    color:var(--muted);font-size:.96rem}
-  .empty b{color:var(--fg)}
-
-  /* ---------- definition ---------- */
-  .define{background:var(--bg-3);border-top:1px solid var(--line);
-    border-bottom:1px solid var(--line);padding:74px 0}
-  .define .term{font-weight:800;font-size:1.06rem;margin:0 0 10px}
-  .define .term i{color:var(--muted);font-weight:500}
-  .define p{margin:0;color:var(--muted);max-width:64ch;font-size:1.06rem}
-  .define b{color:var(--fg);font-weight:700}
-
-  /* ---------- final cta ---------- */
-  .final{border-top:1px solid var(--line);padding:96px 0;text-align:center;
-    position:relative;overflow:hidden}
-  .final:before{content:"";position:absolute;inset:auto -20% -60% -20%;height:420px;
-    background:radial-gradient(50% 50% at 50% 50%, var(--accent-soft), transparent 70%);
-    pointer-events:none}
-  .final h2{margin:0 auto 16px;font-weight:900;letter-spacing:-.04em;line-height:1.02;
-    font-size:clamp(2rem,6vw,3.6rem);text-transform:uppercase;max-width:16ch;position:relative}
-  .final p{margin:0 auto 30px;color:var(--muted);max-width:48ch;font-size:1.05rem;position:relative}
-  .final .cta-row{justify-content:center;position:relative}
-
-  /* ---------- footer ---------- */
-  footer{border-top:1px solid var(--line);background:var(--bg-3)}
-  .fgrid{display:grid;gap:34px;padding:64px 0 44px}
-  @media(min-width:820px){ .fgrid{grid-template-columns:1.6fr 1fr 1fr} }
-  .fbrand .word{font-size:22px;display:inline-block;margin-bottom:12px}
-  .fbrand p{margin:0;color:var(--muted);font-size:.94rem;max-width:34ch}
-  footer h4{margin:0 0 14px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;
-    color:var(--accent);font-weight:800}
-  footer ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
-  footer ul a{color:var(--muted);text-decoration:none;font-size:.94rem;transition:color .2s}
-  footer ul a:hover{color:var(--fg)}
-  .fbot{border-top:1px solid var(--line);padding:22px 0 40px;display:flex;
-    justify-content:space-between;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:.84rem}
-  .tm{font-size:.62em;vertical-align:super;line-height:0;margin-left:1px;letter-spacing:.02em}
-  .copy-link{color:var(--muted);text-decoration:none;transition:color .2s}
-  .copy-link:hover{color:var(--fg)}
-</style>
+<link rel="stylesheet" href="/assets/site.css">
 </head>
 <body>
 
-<nav>
+<nav class="top">
   <div class="nav-in">
     <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="panel">
       <i></i><i></i><i></i>
     </button>
-    <a class="word" href="#top">NEXEDGE<b>.</b></a>
+    <a class="word" href="/">NEXEDGE<b>.</b></a>
     <div class="tabs">
-      <a class="on" href="#top">Home</a>
-      <a href="#value">Why us</a>
-      <a href="#resources">Resources</a>
-      <a href="#blog" class="soon">Blog</a>
-      <a href="#shop" class="soon">Shop</a>
-      <a href="#contact">Contact</a>
+      <a class="on" href="/">Home</a>
+      <a href="/deals/">Deals</a>
+      <a href="/resources/">Resources</a>
+      <a href="/team/">Team</a>
+      <a href="/shop/" class="soon">Shop</a>
     </div>
-    <!-- social icons drop in here once Paul supplies the real YouTube / Instagram URLs -->
   </div>
 </nav>
 
@@ -293,51 +38,54 @@
     <button class="panel-close" id="panelClose" aria-label="Close menu">&times;</button>
   </div>
 
-  <a class="pl" href="#top">Home</a>
-  <a class="pl" href="#value">Why us<small>How we pick what is worth it</small></a>
-  <a class="pl" href="#resources">Resources<small>Free tools and downloads</small></a>
-  <a class="pl" href="#blog">Blog <span class="pdot">&bull;</span><small>Coming soon</small></a>
-  <a class="pl" href="#shop">Shop <span class="pdot">&bull;</span><small>Coming soon</small></a>
-  <a class="pl" href="#contact">Contact</a>
+  <a class="pl" href="/">Home</a>
+  <a class="pl" href="/deals/">Deals<small>What is actually worth buying</small></a>
+  <a class="pl" href="/resources/">Resources<small>Free tools we built and gave away</small></a>
+  <a class="pl" href="/team/">Team<small>Who we are</small></a>
+  <a class="pl" href="/shop/">Shop <span class="pdot">&bull;</span><small>Coming soon</small></a>
 
   <div class="panel-foot">
     <a class="btn solid" href="mailto:contact@nexedgestudios.com">contact@nexedgestudios.com</a>
     <p>No sign-up. No email required.</p>
+    <div class="panel-mini">
+      <a href="/copyright/">Copyright</a>
+      <a href="https://github.com/nexedgestudios">GitHub</a>
+    </div>
   </div>
 </aside>
 
-<div class="wrap" id="top">
-  <header>
+<div class="wrap">
+  <header class="hero">
     <div class="status reveal"><span class="dot"></span><span>NexEdge Studios</span></div>
     <h1 class="reveal">
-      Tech you can
-      <span class="ring" id="ring">afford<svg viewBox="0 0 600 150" preserveAspectRatio="none" aria-hidden="true"><path d="M300 20 C150 18 34 44 30 76 C26 110 158 132 306 132 C450 132 574 108 570 74 C566 44 452 18 292 18 C232 17 176 24 146 36"/></svg></span>
+      Gear that fits
+      <span class="ring" id="ring">your budget<svg viewBox="0 0 600 150" preserveAspectRatio="none" aria-hidden="true"><path d="M300 20 C150 18 34 44 30 76 C26 110 158 132 306 132 C450 132 574 108 570 74 C566 44 452 18 292 18 C232 17 176 24 146 36"/></svg></span>
     </h1>
     <p class="lede reveal">
-      We hunt the best deals, test what is actually worth your money, and give
-      our resources away <strong>free, with no subscriptions</strong>.
+      Value gaming and streaming gear, budget PC builds, and honest
+      comparisons. We match the kit to what you actually have to spend.
     </p>
     <p class="flip reveal">
       While everything else keeps getting more expensive,
       <em>we are heading the opposite direction.</em>
     </p>
     <div class="cta-row reveal">
-      <a class="btn solid mag" href="#resources">Get the free tools &rarr;</a>
-      <a class="btn mag" href="#value">Why trust us</a>
+      <a class="btn solid mag" href="/deals/">See the deals &rarr;</a>
+      <a class="btn mag" href="/resources/">Free tools</a>
     </div>
-    <p class="microcopy reveal">No sign-up. No email required. Nothing to cancel.</p>
   </header>
 </div>
 
 <div class="wrap">
-  <section id="value">
+  <section id="what">
     <div class="head reveal">
       <div>
-        <p class="kicker">Why us</p>
-        <h2 class="h2">Good tech, without the markup.</h2>
+        <p class="kicker">What we do</p>
+        <h2 class="h2">Budget is the starting point, not the compromise.</h2>
         <p class="sub">
-          We sit between high-end hardware and a realistic budget, and we are
-          straight about which side something falls on.
+          Plenty of channels tell you what the best gear is. We tell you what
+          the best gear is for what you can spend, which is a different
+          question and a more useful one.
         </p>
       </div>
     </div>
@@ -346,50 +94,51 @@
 
       <div class="cell w8">
         <div class="ic" aria-hidden="true">
-          <svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M6 9h12l2 9a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/><path d="M9 9V6a3 3 0 0 1 6 0v3"/><path d="m9 14 2 2 4-4"/></svg>
         </div>
-        <h3>Price against performance</h3>
+        <h3>Gaming and streaming gear, judged on value</h3>
         <p>
-          Specs on a box do not tell you whether something is worth the money.
-          We compare what you actually get per pound spent, and we say plainly
-          when the cheaper option wins.
+          Headsets, mics, capture cards, monitors, peripherals. We look at what
+          you get per pound spent rather than what tops a spec chart, and we say
+          plainly when the cheaper option is the smarter buy.
         </p>
         <ul class="ticks">
-          <li><i></i> What it really costs to own</li>
-          <li><i></i> Whether it lasts</li>
+          <li><i></i> Price against real performance</li>
+          <li><i></i> Whether it actually lasts</li>
         </ul>
       </div>
 
       <div class="cell w4">
         <div class="ic" aria-hidden="true">
-          <svg viewBox="0 0 24 24"><path d="M20.6 13.4 12 22l-9-9V4a1 1 0 0 1 1-1h8.6z"/><circle cx="7.5" cy="7.5" r="1.2"/></svg>
+          <svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8M8 11h8M8 15h4"/></svg>
         </div>
-        <h3>Deals worth knowing</h3>
+        <h3>Budget PC builds</h3>
         <p>
-          Price drops, refurbished gear that is genuinely fine, and the sales
-          that are not really sales.
+          Real builds for real budgets, including what we skipped and why. Not
+          hypothetical parts lists.
         </p>
       </div>
 
       <div class="cell w4">
         <div class="ic" aria-hidden="true">
-          <svg viewBox="0 0 24 24"><path d="M12 2 4 6v6c0 5 3.4 8.9 8 10 4.6-1.1 8-5 8-10V6z"/><path d="m9 12 2 2 4-4"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 3v18"/><path d="M5 8h14"/><path d="m8 8-3 6a3 3 0 0 0 6 0z"/><path d="m16 8-3 6a3 3 0 0 0 6 0z"/></svg>
         </div>
-        <h3>Honest, even when it costs us</h3>
+        <h3>Head to head</h3>
         <p>
-          If something is not worth buying, we say so. If last year's model is
-          the smarter buy, we say that too.
+          Straight comparisons, so you can see which side of your budget line a
+          product really falls on.
         </p>
       </div>
 
       <div class="cell w8">
         <div class="ic" aria-hidden="true">
-          <svg viewBox="0 0 24 24"><path d="M4 19V5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v14"/><path d="M4 19h16"/><path d="M9 8h6M9 12h6"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M20.6 13.4 12 22l-9-9V4a1 1 0 0 1 1-1h8.6z"/><circle cx="7.5" cy="7.5" r="1.2"/></svg>
         </div>
-        <h3>Everything we make is free</h3>
+        <h3>Deals, with the catch stated</h3>
         <p>
-          Our tools and guides are given away. No paywall, no monthly fee, no
-          account, and nothing you have to remember to cancel later.
+          Price drops and refurbished gear that is genuinely fine, alongside the
+          sales that are not really sales. Where a link earns us a commission we
+          say so on the page, and it never changes what we recommend.
         </p>
       </div>
 
@@ -397,30 +146,21 @@
   </section>
 </div>
 
-<div class="define">
-  <div class="wrap reveal">
-    <p class="term">Value <i>(n.) \'val-(,)yü\</i></p>
-    <p>
-      Not the cheapest thing on the shelf, and not the most expensive either. The
-      one that is actually worth what you paid for it. <b>We go looking for it,
-      so you do not have to.</b>
-    </p>
-  </div>
-</div>
-
 <div class="wrap">
-
-  <section id="resources">
+  <section id="free" style="padding-top:0">
     <div class="head reveal">
       <div>
-        <p class="kicker">Resources</p>
-        <h2 class="h2">Free things you can use today.</h2>
+        <p class="kicker">Free tools</p>
+        <h2 class="h2">Things we built and gave away.</h2>
+        <p class="sub">
+          Software we needed ourselves, published on GitHub for anyone to
+          download. No sign-up, no account, no subscription.
+        </p>
       </div>
-      <p class="note">No subscription, no account.</p>
+      <p class="note"><a class="copy-link" href="/resources/">All resources &rarr;</a></p>
     </div>
-
     <div class="grid2 reveal">
-      <div class="card lead">
+      <a class="card lead" href="/resources/">
         <span class="tag">Download</span>
         <h3>scrcpy Manager</h3>
         <p>
@@ -428,109 +168,57 @@
           line. Wireless or cable, with recording that actually saves.
           <span class="free">Free.</span>
         </p>
-      </div>
-
-      <div class="card">
-        <span class="tag">App</span>
-        <h3>MyWika</h3>
+      </a>
+      <a class="card" href="/resources/">
+        <span class="tag">More</span>
+        <h3>Everything else</h3>
         <p>
-          A language learning app built around flashcards you actually control,
-          with word parts, practice drills and streaks that keep you honest.
+          The rest of what we have published, and what is coming next.
         </p>
-      </div>
-
-      <div class="card">
-        <span class="tag">Education</span>
-        <h3>NexStudents</h3>
-        <p>
-          Tools for homeschool families, built from the day-to-day reality of
-          teaching at home rather than from a spec sheet.
-        </p>
-      </div>
-
-      <div class="card">
-        <span class="tag">Channel</span>
-        <h3>NexEdge Tech</h3>
-        <p>
-          Reviews, deals and tutorials for people who want good tech without
-          overpaying. The tech brand this whole thing grew out of.
-        </p>
-      </div>
+      </a>
     </div>
   </section>
-
-  <section id="blog">
-    <div class="head reveal"><div><p class="kicker">Blog</p><h2 class="h2">Guides and news.</h2></div></div>
-    <div class="empty reveal">
-      <b>Coming soon.</b> Write-ups for the settings nobody explains properly,
-      plus the tech news worth knowing about, with the price and the catch
-      stated up front.
-    </div>
-  </section>
-
-  <section id="shop">
-    <div class="head reveal"><div><p class="kicker">Shop</p><h2 class="h2">A small shop.</h2></div></div>
-    <div class="empty reveal">
-      <b>Coming soon.</b> Kept deliberately small, and limited to things we
-      would recommend to somebody on a budget.
-    </div>
-  </section>
-
 </div>
 
 <div class="final">
   <div class="wrap reveal">
-    <h2>Stop overpaying for tech.</h2>
+    <h2>Spend less. Get more.</h2>
     <p>
-      Everything we make is free to use. Take what is useful, ignore the rest,
-      and keep your money.
+      Start with what is worth buying right now, or take the free tools and
+      keep your money entirely.
     </p>
     <div class="cta-row">
-      <a class="btn solid mag" href="#resources">Get the free tools &rarr;</a>
+      <a class="btn solid mag" href="/deals/">See the deals &rarr;</a>
+      <a class="btn mag" href="/resources/">Free tools</a>
     </div>
   </div>
-</div>
-
-<div class="wrap">
-  <section id="contact" style="padding-bottom:40px">
-    <div class="head reveal"><div><p class="kicker">Contact</p><h2 class="h2">Say hello.</h2>
-      <p class="sub">
-        Questions, collaborations, or something you want us to test so you do
-        not have to risk your own money on it.
-      </p></div></div>
-    <div class="cta-row reveal">
-      <a class="btn solid mag" href="mailto:contact@nexedgestudios.com">contact@nexedgestudios.com</a>
-      <a class="btn mag" href="https://github.com/nexedgestudios">GitHub</a>
-    </div>
-  </section>
 </div>
 
 <footer>
   <div class="wrap">
     <div class="fgrid">
       <div class="fbrand">
-        <a class="word" href="#top">NEXEDGE<b>.</b></a>
+        <a class="word" href="/">NEXEDGE<b>.</b></a>
         <p>
-          Honest reviews and value-driven tech for people who would rather keep
-          their money.
+          Value gaming and streaming gear, budget builds, and honest
+          comparisons for people who would rather keep their money.
         </p>
       </div>
       <div>
-        <h4>Resources</h4>
+        <h4>Explore</h4>
         <ul>
-          <li><a href="#resources">scrcpy Manager</a></li>
-          <li><a href="#resources">MyWika</a></li>
-          <li><a href="#resources">NexStudents</a></li>
-          <li><a href="https://github.com/nexedgestudios">Open source</a></li>
+          <li><a href="/deals/">Deals</a></li>
+          <li><a href="/resources/">Resources</a></li>
+          <li><a href="/team/">Team</a></li>
+          <li><a href="/shop/">Shop</a></li>
         </ul>
       </div>
       <div>
         <h4>Studios</h4>
         <ul>
-          <li><a href="#value">Why us</a></li>
-          <li><a href="#blog">Blog</a></li>
-          <li><a href="#shop">Shop</a></li>
           <li><a href="mailto:contact@nexedgestudios.com">Contact</a></li>
+          <li><a href="https://github.com/nexedgestudios">GitHub</a></li>
+          <li><a href="/copyright/">Copyright</a></li>
         </ul>
       </div>
     </div>
@@ -538,7 +226,7 @@
       <p style="margin:0"><strong>NexEdge Tech</strong> is the tech brand of NexEdge Studios.</p>
       <p style="margin:0">
         <a href="/copyright/" class="copy-link">
-          &copy; <span id="y">2026</span> NexEdge Studios<sup class="tm">&trade;</sup>.
+          &copy; <span class="yr">2026</span> NexEdge Studios<span class="tm">&trade;</span>.
           All rights reserved.
         </a>
       </p>
@@ -546,132 +234,6 @@
   </div>
 </footer>
 
-<script>
-  document.getElementById('y').textContent = new Date().getFullYear();
-
-  /* Hand-drawn ring. The dash length MUST be measured, not hardcoded -
-     a fixed value shorter than the path leaves the circle unfinished. */
-  (function(){
-    var ring = document.getElementById('ring');
-    if(!ring) return;
-    var path = ring.querySelector('path');
-    if(!path || !path.getTotalLength) return;
-    function arm(){
-      var len = path.getTotalLength();
-      path.style.strokeDasharray  = len;
-      path.style.strokeDashoffset = len;
-      requestAnimationFrame(function(){ ring.classList.add('go'); });
-    }
-    if(document.readyState === 'complete'){ arm(); }
-    else { window.addEventListener('load', arm); }
-  })();
-
-  /* Reveal on scroll */
-  (function(){
-    var els = [].slice.call(document.querySelectorAll('.reveal'));
-    if(!('IntersectionObserver' in window)){
-      els.forEach(function(e){ e.classList.add('in'); }); return;
-    }
-    var io = new IntersectionObserver(function(entries){
-      entries.forEach(function(e){
-        if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
-      });
-    }, {threshold:.12, rootMargin:'0px 0px -40px 0px'});
-    els.forEach(function(e){ io.observe(e); });
-  })();
-
-  /* Magnetic buttons - pointer only, and skipped if the user asked for
-     reduced motion or is on a touch screen */
-  (function(){
-    if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    if(!window.matchMedia('(hover: hover)').matches) return;
-    [].slice.call(document.querySelectorAll('.mag')).forEach(function(btn){
-      btn.addEventListener('mousemove', function(e){
-        var r = btn.getBoundingClientRect();
-        var x = e.clientX - r.left - r.width/2;
-        var y = e.clientY - r.top  - r.height/2;
-        btn.style.transform = 'translate(' + (x*0.14) + 'px,' + (y*0.24) + 'px)';
-      });
-      btn.addEventListener('mouseleave', function(){ btn.style.transform = ''; });
-    });
-  })();
-
-  /* Slide-out panel. Closes on link click, Esc, scrim click, and traps
-     focus while open so keyboard users cannot tab behind it. */
-  (function(){
-    var burger = document.getElementById('burger');
-    var panel  = document.getElementById('panel');
-    var scrim  = document.getElementById('scrim');
-    var close  = document.getElementById('panelClose');
-    if(!burger || !panel || !scrim) return;
-    var lastFocus = null;
-
-    function open(){
-      lastFocus = document.activeElement;
-      scrim.hidden = false;
-      document.body.classList.add('panel-open');
-      document.body.style.overflow = 'hidden';
-      burger.setAttribute('aria-expanded','true');
-      panel.setAttribute('aria-hidden','false');
-      var first = panel.querySelector('a,button');
-      if(first) first.focus();
-    }
-    function shut(){
-      document.body.classList.remove('panel-open');
-      document.body.style.overflow = '';
-      burger.setAttribute('aria-expanded','false');
-      panel.setAttribute('aria-hidden','true');
-      setTimeout(function(){ if(!document.body.classList.contains('panel-open')) scrim.hidden = true; }, 600);
-      if(lastFocus) lastFocus.focus();
-    }
-    function toggle(){
-      document.body.classList.contains('panel-open') ? shut() : open();
-    }
-
-    burger.addEventListener('click', toggle);
-    close.addEventListener('click', shut);
-    scrim.addEventListener('click', shut);
-    panel.addEventListener('click', function(e){
-      if(e.target.closest('a')) shut();
-    });
-    // close on scroll, but ignore scrolling INSIDE the panel itself
-    var lastY = window.scrollY;
-    window.addEventListener('scroll', function(){
-      if(!document.body.classList.contains('panel-open')) return;
-      if(Math.abs(window.scrollY - lastY) > 4) shut();
-      lastY = window.scrollY;
-    }, {passive:true});
-
-    document.addEventListener('keydown', function(e){
-      if(!document.body.classList.contains('panel-open')) return;
-      if(e.key === 'Escape'){ shut(); return; }
-      if(e.key !== 'Tab') return;
-      var f = panel.querySelectorAll('a[href],button');
-      if(!f.length) return;
-      var first = f[0], last = f[f.length-1];
-      if(e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
-      else if(!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
-    });
-  })();
-
-  /* Highlight the tab for whichever section you are looking at */
-  (function(){
-    var tabs = [].slice.call(document.querySelectorAll('.tabs a'));
-    var map = {};
-    tabs.forEach(function(a){ map[a.getAttribute('href')] = a; });
-    var ids = ['#top','#value','#resources','#blog','#shop','#contact'];
-    var targets = ids.map(function(i){ return document.querySelector(i); }).filter(Boolean);
-    if(!('IntersectionObserver' in window)) return;
-    var io = new IntersectionObserver(function(entries){
-      entries.forEach(function(e){
-        if(!e.isIntersecting) return;
-        tabs.forEach(function(a){ a.classList.remove('on'); });
-        var a = map['#' + e.target.id];
-        if(a) a.classList.add('on');
-      });
-    }, {rootMargin:'-45% 0px -50% 0px'});
-    targets.forEach(function(t){ io.observe(t); });
-  })();
-</script>
+<script src="/assets/site.js"></script>
 </body>
 </html>
