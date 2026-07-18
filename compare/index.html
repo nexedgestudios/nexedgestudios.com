@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Compare | NexEdge Studios</title>
+<meta name="description" content="Compare gaming and streaming gear by specs and budget, with an honest verdict on each.">
+<meta name="theme-color" content="#0b0d12">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+
+<nav class="top">
+  <div class="nav-in">
+    <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="panel">
+      <i></i><i></i><i></i>
+    </button>
+    <a class="word" href="/">NEXEDGE<b>.</b></a>
+    <div class="tabs">
+      <a href="/">Home</a>
+      <a class="on" href="/compare/">Compare</a>
+      <a href="/deals/">Deals</a>
+      <a href="/resources/">Resources</a>
+      <a href="/team/">Team</a>
+      <a href="/shop/" class="soon">Shop</a>
+    </div>
+  </div>
+</nav>
+
+<div class="scrim" id="scrim" hidden></div>
+
+<aside class="panel" id="panel" aria-hidden="true" aria-label="Menu">
+  <div class="panel-top">
+    <span class="word">NEXEDGE<b>.</b></span>
+    <button class="panel-close" id="panelClose" aria-label="Close menu">&times;</button>
+  </div>
+  <a class="pl" href="/">Home</a>
+  <a class="pl" href="/compare/">Compare<small>Match the gear to your budget</small></a>
+  <a class="pl" href="/deals/">Deals<small>What is actually worth buying</small></a>
+  <a class="pl" href="/resources/">Resources<small>Free tools we built and gave away</small></a>
+  <a class="pl" href="/team/">Team<small>Who we are</small></a>
+  <a class="pl" href="/shop/">Shop <span class="pdot">&bull;</span><small>Coming soon</small></a>
+  <div class="panel-foot">
+    <a class="btn solid" href="mailto:contact@nexedgestudios.com">contact@nexedgestudios.com</a>
+    <p>No sign-up. No email required.</p>
+    <div class="panel-mini">
+      <a href="/copyright/">Copyright</a>
+      <a href="https://github.com/nexedgestudios">GitHub</a>
+    </div>
+  </div>
+</aside>
+
+<div class="wrap">
+  <header class="phead">
+    <h1>Compare</h1>
+    <p>
+      Pick what you can spend and what it is for. We will show you the specs
+      side by side and tell you straight which one is worth it.
+    </p>
+  </header>
+
+  <section>
+    <div class="disclosure">
+      <p>
+        <b>No prices here, on purpose.</b> Prices change daily and a number
+        typed on a page is wrong within a week. We show the specs and our
+        verdict, then send you to Amazon where the price is always current.
+        Those links earn us a small commission at no extra cost to you, and it
+        never changes what we recommend.
+      </p>
+    </div>
+
+    <div class="filters" id="filters" hidden>
+      <div class="frow">
+        <span class="flabel">Budget</span>
+        <div id="budgetChips" class="frow"></div>
+      </div>
+      <div class="frow">
+        <span class="flabel">Category</span>
+        <div id="catChips" class="frow"></div>
+      </div>
+    </div>
+
+    <p class="count" id="count" hidden></p>
+    <div class="plist" id="plist"></div>
+    <div class="empty" id="empty" hidden></div>
+  </section>
+</div>
+
+<div class="final">
+  <div class="wrap">
+    <h2>Not sure what to get?</h2>
+    <p>
+      Tell us your budget and what you are using it for, and we will give you a
+      straight answer.
+    </p>
+    <div class="cta-row">
+      <a class="btn solid mag" href="mailto:contact@nexedgestudios.com">Ask us</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div class="fbrand">
+        <a class="word" href="/">NEXEDGE<b>.</b></a>
+        <p>
+          Value gaming and streaming gear, budget builds, and honest
+          comparisons for people who would rather keep their money.
+        </p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="/compare/">Compare</a></li>
+          <li><a href="/deals/">Deals</a></li>
+          <li><a href="/resources/">Resources</a></li>
+          <li><a href="/team/">Team</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Studios</h4>
+        <ul>
+          <li><a href="mailto:contact@nexedgestudios.com">Contact</a></li>
+          <li><a href="https://github.com/nexedgestudios">GitHub</a></li>
+          <li><a href="/copyright/">Copyright</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="fbot">
+      <p style="margin:0"><strong>NexEdge Tech</strong> is the tech brand of NexEdge Studios.</p>
+      <p style="margin:0">
+        <a href="/copyright/" class="copy-link">
+          &copy; <span class="yr">2026</span> NexEdge Studios<span class="tm">&trade;</span>.
+          All rights reserved.
+        </a>
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/site.js"></script>
+<script>
+/* ---------------------------------------------------------------
+   Comparison tool. Everything comes from compare.json - to add a
+   product you edit that file only, never this page.
+   Deliberately shows NO prices: Amazon requires displayed prices to
+   be refreshed within 24h, and a typed number is stale in days.
+   --------------------------------------------------------------- */
+(function(){
+  'use strict';
+  var listEl   = document.getElementById('plist');
+  var emptyEl  = document.getElementById('empty');
+  var countEl  = document.getElementById('count');
+  var filters  = document.getElementById('filters');
+  var data = null;
+  var sel = { budget:'all', category:'all' };
+
+  function say(html){ emptyEl.hidden = false; emptyEl.innerHTML = html; }
+
+  fetch('compare.json', {cache:'no-cache'})
+    .then(function(r){ if(!r.ok) throw new Error(r.status); return r.json(); })
+    .then(function(json){
+      data = json;
+      if(!data.products || !data.products.length){
+        say('<b>No comparisons published yet.</b> We would rather show you ' +
+            'nothing than pad this out with gear we have not actually used. ' +
+            'The first ones are being written up now.');
+        return;
+      }
+      buildChips();
+      filters.hidden = false;
+      render();
+    })
+    .catch(function(){
+      say('<b>Could not load the comparisons.</b> Try refreshing. If it keeps ' +
+          'happening, email contact@nexedgestudios.com and we will fix it.');
+    });
+
+  function chip(label, group, value){
+    var b = document.createElement('button');
+    b.className = 'chip';
+    b.type = 'button';
+    b.textContent = label;
+    b.setAttribute('aria-pressed', String(sel[group] === value));
+    b.addEventListener('click', function(){
+      sel[group] = value;
+      [].slice.call(document.querySelectorAll('#' + (group === 'budget' ? 'budgetChips' : 'catChips') + ' .chip'))
+        .forEach(function(c){ c.setAttribute('aria-pressed','false'); });
+      b.setAttribute('aria-pressed','true');
+      render();
+    });
+    return b;
+  }
+
+  function buildChips(){
+    var bWrap = document.getElementById('budgetChips');
+    var cWrap = document.getElementById('catChips');
+    bWrap.appendChild(chip('Any', 'budget', 'all'));
+    (data.budgets || []).forEach(function(b){ bWrap.appendChild(chip(b.label, 'budget', b.id)); });
+    cWrap.appendChild(chip('All', 'category', 'all'));
+    (data.categories || []).forEach(function(c){ cWrap.appendChild(chip(c.label, 'category', c.id)); });
+  }
+
+  function labelFor(list, id){
+    var hit = (list || []).filter(function(x){ return x.id === id; })[0];
+    return hit ? hit.label : id;
+  }
+
+  function render(){
+    var items = data.products.filter(function(p){
+      return (sel.budget === 'all' || p.budget === sel.budget) &&
+             (sel.category === 'all' || p.category === sel.category);
+    });
+
+    listEl.innerHTML = '';
+    emptyEl.hidden = true;
+    countEl.hidden = false;
+    countEl.textContent = items.length + (items.length === 1 ? ' match' : ' matches');
+
+    if(!items.length){
+      countEl.hidden = true;
+      say('<b>Nothing in that combination yet.</b> Try a wider budget, or ' +
+          'email us and we will look into it for you.');
+      return;
+    }
+
+    items.forEach(function(p){
+      var card = document.createElement('article');
+      card.className = 'prod' + (p.pick ? ' pick' : '');
+
+      var top = document.createElement('div');
+      top.className = 'prod-top';
+      var h = document.createElement('div');
+      var h3 = document.createElement('h3');
+      h3.textContent = p.name;
+      h.appendChild(h3);
+      var band = document.createElement('span');
+      band.className = 'band';
+      band.textContent = p.pick ? 'Our pick' : labelFor(data.budgets, p.budget);
+      top.appendChild(h); top.appendChild(band);
+      card.appendChild(top);
+
+      if(p.verdict){
+        var v = document.createElement('p');
+        v.className = 'verdict';
+        v.textContent = p.verdict;
+        card.appendChild(v);
+      }
+
+      if(p.specs){
+        var t = document.createElement('table');
+        t.className = 'specs';
+        Object.keys(p.specs).forEach(function(k){
+          var tr = document.createElement('tr');
+          var th = document.createElement('th'); th.textContent = k;
+          var td = document.createElement('td'); td.textContent = p.specs[k];
+          tr.appendChild(th); tr.appendChild(td); t.appendChild(tr);
+        });
+        card.appendChild(t);
+      }
+
+      /* Buy button only renders when a real Associates tag is set, so we
+         never ship links that earn nothing or point nowhere. */
+      if(data.affiliateTag && p.asin){
+        var a = document.createElement('a');
+        a.className = 'btn solid';
+        a.href = 'https://www.amazon.com/dp/' + encodeURIComponent(p.asin) +
+                 '?tag=' + encodeURIComponent(data.affiliateTag);
+        a.rel = 'sponsored nofollow noopener';
+        a.target = '_blank';
+        a.textContent = 'Check price at Amazon';
+        card.appendChild(a);
+        var np = document.createElement('p');
+        np.className = 'noprice';
+        np.textContent = 'Price shown by Amazon, always current.';
+        card.appendChild(np);
+      }
+
+      listEl.appendChild(card);
+    });
+  }
+})();
+</script>
+</body>
+</html>

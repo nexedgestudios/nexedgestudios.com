@@ -1,0 +1,41 @@
+{
+  "_readme": [
+    "This one file drives the whole comparison tool. Edit it, commit, done.",
+    "",
+    "affiliateTag  Your Amazon Associates tag, e.g. nexedge-20.",
+    "              While this is empty, buy buttons are hidden entirely so the",
+    "              site never ships untagged links that earn nothing.",
+    "",
+    "DO NOT put prices in here. Amazon requires displayed prices to be",
+    "refreshed or removed within 24 hours, and anything you type will be stale",
+    "within days. Use the budget band instead and let Amazon show the price.",
+    "",
+    "Each product needs:",
+    "  id        short unique slug",
+    "  name      what it is called",
+    "  category  must match one of the category ids below",
+    "  budget    must match one of the budget ids below",
+    "  asin      Amazon ASIN, found in the product URL (/dp/XXXXXXXXXX)",
+    "  verdict   one honest sentence. This is the whole point of the page.",
+    "  specs     any key/value pairs you want compared. Keys line up across",
+    "            products in the same category, so keep them consistent.",
+    "  pick      optional. true marks it as your recommendation in that band."
+  ],
+
+  "affiliateTag": "",
+
+  "budgets": [
+    { "id": "under100", "label": "Under $100" },
+    { "id": "100to200", "label": "$100 - $200" },
+    { "id": "over200",  "label": "$200+" }
+  ],
+
+  "categories": [
+    { "id": "headsets", "label": "Headsets" },
+    { "id": "mics",     "label": "Microphones" },
+    { "id": "monitors", "label": "Monitors" },
+    { "id": "capture",  "label": "Capture" }
+  ],
+
+  "products": []
+}
