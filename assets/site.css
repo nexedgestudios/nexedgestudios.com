@@ -66,6 +66,18 @@ nav.top{position:sticky;top:0;z-index:60;
 .tabs a.soon:after{content:" \2022";color:var(--accent)}
 @media(max-width:880px){ .word{font-size:18px} .tabs{display:none} }
 
+/* ---------- social icons, top right ---------- */
+.social{display:flex;gap:6px;align-items:center;margin-left:auto;flex:none}
+.social a{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:34px;height:34px;border-radius:9px;border:1px solid var(--line);
+  color:var(--muted);background:var(--card);
+  transition:color .2s,border-color .2s,transform .18s ease-out;
+}
+.social a:hover{color:var(--fg);border-color:var(--accent);transform:translateY(-1px)}
+.social svg{width:17px;height:17px;fill:currentColor;display:block}
+@media(max-width:420px){ .social a{width:30px;height:30px} .social svg{width:15px;height:15px} }
+
 /* ---------- burger + left slide-out panel ---------- */
 .burger{margin-left:-10px;margin-right:4px;display:inline-flex;flex-direction:column;
   justify-content:center;gap:5px;width:44px;height:40px;padding:0 10px;
