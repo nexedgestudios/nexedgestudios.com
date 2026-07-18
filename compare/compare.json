@@ -31,10 +31,12 @@
   ],
 
   "categories": [
-    { "id": "headsets", "label": "Headsets" },
-    { "id": "mics",     "label": "Microphones" },
-    { "id": "monitors", "label": "Monitors" },
-    { "id": "capture",  "label": "Capture" }
+    { "id": "headsets",  "label": "Headsets" },
+    { "id": "mics",      "label": "Microphones" },
+    { "id": "keyboards", "label": "Keyboards" },
+    { "id": "mice",      "label": "Mice" },
+    { "id": "monitors",  "label": "Monitors" },
+    { "id": "capture",   "label": "Capture" }
   ],
 
   "products": []
