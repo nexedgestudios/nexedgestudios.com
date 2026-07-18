@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NexEdge Studios</title>
+<meta name="description" content="NexEdge Studios. Tech reviews, tutorials and small dependable software. Home of NexEdge Tech.">
+<meta name="theme-color" content="#08090b">
+<style>
+  :root{
+    --bg:#08090b;
+    --bg-2:#0e1116;
+    --card:#111519;
+    --line:#1e242c;
+    --fg:#f4f6fa;
+    --muted:#8e99a8;
+    --accent:#4d8dff;
+    --accent-ink:#00060f;
+    --max:1120px;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;background:var(--bg);color:var(--fg);
+    font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 22px}
+
+  /* ---------- nav ---------- */
+  nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(8,9,11,.82);backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-in{
+    max-width:var(--max);margin:0 auto;padding:14px 22px;
+    display:flex;align-items:center;justify-content:space-between;gap:16px;
+  }
+  .word{
+    font-weight:900;letter-spacing:-.045em;font-size:20px;
+    text-decoration:none;color:var(--fg);white-space:nowrap;
+  }
+  .word b{color:var(--accent)}
+  .nav-links{display:flex;gap:22px;align-items:center}
+  .nav-links a{
+    color:var(--muted);text-decoration:none;font-size:12px;
+    letter-spacing:.12em;text-transform:uppercase;font-weight:600;
+  }
+  .nav-links a:hover{color:var(--fg)}
+  @media(max-width:720px){ .nav-links{display:none} }
+
+  /* ---------- hero ---------- */
+  header{padding:110px 0 90px;position:relative;overflow:hidden}
+  header:before{
+    content:"";position:absolute;inset:-40% -20% auto -20%;height:520px;
+    background:radial-gradient(60% 60% at 50% 40%, rgba(77,141,255,.16), transparent 70%);
+    pointer-events:none;
+  }
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:9px;
+    font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--muted);font-weight:700;margin-bottom:26px;
+  }
+  .pip{width:7px;height:7px;border-radius:50%;background:var(--accent);
+    box-shadow:0 0 0 4px rgba(77,141,255,.18)}
+  h1{
+    margin:0 0 26px;font-weight:900;letter-spacing:-.04em;
+    font-size:clamp(2.6rem,8.2vw,5.6rem);line-height:.96;text-transform:uppercase;
+    position:relative;
+  }
+  /* hand-drawn ring, Lepiten-style */
+  .ring{position:relative;display:inline-block;white-space:nowrap}
+  .ring svg{
+    position:absolute;left:-9%;top:-24%;width:118%;height:150%;
+    overflow:visible;pointer-events:none;
+  }
+  .ring svg path{
+    fill:none;stroke:var(--accent);stroke-width:5;stroke-linecap:round;
+    stroke-dasharray:760;stroke-dashoffset:760;
+    animation:draw 1.15s cubic-bezier(.55,.1,.3,1) .55s forwards;
+  }
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media(prefers-reduced-motion:reduce){
+    .ring svg path{animation:none;stroke-dashoffset:0}
+  }
+  .lede{
+    font-size:clamp(1.02rem,2.1vw,1.18rem);color:var(--muted);
+    margin:0 0 34px;max-width:52ch;
+  }
+  .cta-row{display:flex;flex-wrap:wrap;gap:12px}
+  .btn{
+    display:inline-flex;align-items:center;gap:9px;
+    padding:13px 22px;border-radius:999px;text-decoration:none;
+    font-weight:700;font-size:.94rem;border:1px solid var(--line);
+    color:var(--fg);background:var(--card);
+  }
+  .btn:hover{border-color:var(--accent)}
+  .btn.solid{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+  .btn.solid:hover{filter:brightness(1.08)}
+
+  /* ---------- definition block ---------- */
+  .define{
+    border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    background:var(--bg-2);padding:66px 0;
+  }
+  .define .term{font-weight:800;font-size:1.05rem;margin:0 0 10px}
+  .define .term i{color:var(--muted);font-weight:500}
+  .define p{margin:0;color:var(--muted);max-width:62ch;font-size:1.05rem}
+  .define b{color:var(--fg);font-weight:700}
+
+  /* ---------- sections ---------- */
+  section{padding:78px 0}
+  .kicker{
+    font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--muted);font-weight:700;margin:0 0 28px;
+  }
+  .grid{display:grid;gap:14px}
+  @media(min-width:760px){ .grid{grid-template-columns:repeat(2,1fr)} }
+  .card{
+    background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:26px;position:relative;overflow:hidden;
+  }
+  .card:hover{border-color:#2b3542}
+  .card h3{margin:0 0 9px;font-size:1.16rem;letter-spacing:-.015em}
+  .card p{margin:0;color:var(--muted);font-size:.95rem}
+  .tag{
+    position:absolute;top:16px;right:16px;
+    font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--muted);border:1px solid var(--line);border-radius:999px;
+    padding:4px 10px;font-weight:700;
+  }
+  .card.lead{border-color:rgba(77,141,255,.4)}
+  .card.lead .tag{color:var(--accent);border-color:rgba(77,141,255,.45)}
+
+  /* ---------- contact ---------- */
+  .contact{border-top:1px solid var(--line);background:var(--bg-2)}
+  .contact h2{
+    margin:0 0 14px;font-size:clamp(1.8rem,5vw,2.8rem);
+    font-weight:900;letter-spacing:-.035em;text-transform:uppercase;line-height:1;
+  }
+
+  footer{padding:40px 0 70px;color:var(--muted);font-size:.85rem}
+  footer p{margin:0 0 6px}
+  footer a{color:var(--muted)}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-in">
+    <a class="word" href="#top">NEXEDGE<b>.</b></a>
+    <div class="nav-links">
+      <a href="#work">What we make</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap" id="top">
+
+  <header>
+    <div class="eyebrow"><span class="pip"></span> NexEdge Studios</div>
+    <h1>
+      We build things<br>that
+      <span class="ring">keep working<svg viewBox="0 0 620 130" preserveAspectRatio="none" aria-hidden="true"><path d="M312 12 C150 6 34 30 20 64 C8 96 132 120 306 120 C470 120 600 100 604 66 C608 34 486 12 300 14"/></svg></span>
+    </h1>
+    <p class="lede">
+      Home of <strong>NexEdge Tech</strong>. We pull apart the hardware and the
+      settings nobody explains properly, and we build small, dependable software
+      that still runs years from now.
+    </p>
+    <div class="cta-row">
+      <a class="btn solid" href="#work">See what we make</a>
+      <a class="btn" href="mailto:contact@nexedgestudios.com">Get in touch</a>
+    </div>
+  </header>
+
+</div>
+
+<div class="define">
+  <div class="wrap">
+    <p class="term">Edge <i>(n.) \'ej\</i></p>
+    <p>
+      The part most people skip. The setting buried four menus deep, the option
+      nobody documents, the small thing that makes the difference. <b>We go
+      looking for it.</b>
+    </p>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <section id="work">
+    <p class="kicker">What we make</p>
+    <div class="grid">
+
+      <div class="card lead">
+        <span class="tag">Channel</span>
+        <h3>NexEdge Tech</h3>
+        <p>
+          Reviews, tutorials and deep dives into the hardware and settings most
+          people never touch. The tech brand this whole thing grew out of.
+        </p>
+      </div>
+
+      <div class="card">
+        <span class="tag">Education</span>
+        <h3>NexStudents</h3>
+        <p>
+          Tools for homeschool families, built from the day-to-day reality of
+          teaching at home rather than from a spec sheet.
+        </p>
+      </div>
+
+      <div class="card">
+        <span class="tag">App</span>
+        <h3>MyWika</h3>
+        <p>
+          A language learning app built around flashcards you actually control,
+          with word parts, practice drills and streaks that keep you honest.
+        </p>
+      </div>
+
+      <div class="card">
+        <span class="tag">Open source</span>
+        <h3>Tools we share</h3>
+        <p>
+          Utilities we needed and decided to give away, including scrcpy Manager
+          for putting an Android phone on your PC without the command line.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+</div>
+
+<div class="contact" id="contact">
+  <div class="wrap" style="padding-top:74px;padding-bottom:74px">
+    <h2>Say hello.</h2>
+    <p class="lede" style="margin-bottom:26px">
+      Questions, collaborations, or something you want us to take apart on camera.
+    </p>
+    <div class="cta-row">
+      <a class="btn solid" href="mailto:contact@nexedgestudios.com">contact@nexedgestudios.com</a>
+      <a class="btn" href="https://github.com/nexedgestudios">GitHub</a>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <footer>
+    <p><strong>NexEdge Tech</strong> is the tech brand of NexEdge Studios.</p>
+    <p>&copy; <span id="y">2026</span> NexEdge Studios. All rights reserved.</p>
+  </footer>
+</div>
+
+<script>document.getElementById('y').textContent=new Date().getFullYear();</script>
+</body>
+</html>
