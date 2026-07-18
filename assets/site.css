@@ -273,6 +273,38 @@ section{padding:82px 0;scroll-margin-top:72px}
 .prod .btn{margin-top:auto;align-self:flex-start}
 .noprice{margin:12px 0 0;font-size:.8rem;color:var(--muted)}
 
+/* ---------- comparison chart ---------- */
+.view{display:flex;gap:6px;margin-left:auto}
+.view button{background:var(--card);border:1px solid var(--line);color:var(--muted);
+  border-radius:999px;padding:8px 15px;font-size:.8rem;font-weight:700;cursor:pointer;
+  letter-spacing:.06em;text-transform:uppercase;transition:all .2s}
+.view button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);
+  color:var(--accent-ink)}
+.chartwrap{margin:0 0 34px}
+.chartwrap h3{margin:0 0 14px;font-size:1.05rem;letter-spacing:.02em}
+.chartscroll{overflow-x:auto;border:1px solid var(--line);border-radius:16px;
+  background:var(--card);scrollbar-width:thin;scrollbar-color:var(--line-2) transparent}
+.chartscroll::-webkit-scrollbar{height:8px}
+.chartscroll::-webkit-scrollbar-thumb{background:var(--line-2);border-radius:8px}
+table.chart{border-collapse:collapse;width:100%;min-width:760px;font-size:.9rem}
+table.chart th,table.chart td{padding:14px 16px;text-align:left;
+  border-bottom:1px solid var(--line);vertical-align:top}
+table.chart thead th{position:sticky;top:0;background:var(--bg-2);z-index:2;
+  font-size:.95rem;letter-spacing:-.01em;color:var(--fg);white-space:nowrap}
+table.chart tbody th{color:var(--muted);font-weight:600;font-size:.74rem;
+  letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;
+  position:sticky;left:0;background:var(--card);z-index:1;min-width:150px}
+table.chart thead th:first-child{left:0;z-index:3;background:var(--bg-2)}
+table.chart td{color:var(--fg);white-space:nowrap}
+table.chart td.blank{color:var(--muted);opacity:.5}
+table.chart tr:last-child th,table.chart tr:last-child td{border-bottom:0}
+table.chart .colband{display:block;font-size:.68rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--muted);font-weight:700;margin-top:5px}
+table.chart .pickcol{color:var(--accent)}
+table.chart .buy{padding-top:18px;padding-bottom:18px}
+table.chart .buy .btn{padding:10px 16px;font-size:.84rem}
+.charthint{margin:10px 0 0;font-size:.8rem;color:var(--muted)}
+
 /* ---------- team ---------- */
 .people{display:grid;gap:16px}
 @media(min-width:820px){ .people{grid-template-columns:repeat(2,1fr)} }

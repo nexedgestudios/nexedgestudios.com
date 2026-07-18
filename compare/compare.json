@@ -6,16 +6,25 @@
     "              entirely so the site never ships untagged links.",
     "",
     "DO NOT put prices in here. Amazon requires displayed prices to be",
-    "refreshed or removed within 24 hours. Use the budget band and let Amazon",
-    "show the live price.",
+    "refreshed or removed within 24 hours. Use the budget band instead and let",
+    "Amazon show the live price.",
     "",
-    "SPECS ARE TAKEN FROM EACH PRODUCT'S OWN AMAZON TITLE, which is tied to the",
-    "specific ASIN. The 'Features & Specs' table on Amazon is NOT reliable for",
-    "listings with variants - the UtechSmart Venus table reports Bluetooth /",
-    "wireless / 70hr while its title says wired. Always cross-check.",
+    "SPECS COME FROM EACH PRODUCT'S OWN AMAZON TITLE, which is tied to that",
+    "exact ASIN. The Features & Specs table on Amazon is NOT reliable on",
+    "listings with variants: the UtechSmart Venus table reports Bluetooth /",
+    "wireless / 70hr while its own title says wired. Always cross-check.",
     "",
-    "Fields: id, name, category, budget, asin, verdict (optional), specs,",
-    "pick (optional, marks it as a recommendation)."
+    "Fields per product:",
+    "  id        short unique slug",
+    "  name      product name",
+    "  category  must match a category id below",
+    "  group     heading for the comparison chart, e.g. MMO Mice",
+    "  budget    must match a budget id below",
+    "  asin      the 10 character code in the Amazon URL after /dp/",
+    "  specs     any key/value pairs. Keys shared across products line up as",
+    "            rows in the chart, so keep naming consistent.",
+    "  verdict   optional. Leave empty unless it is a real opinion.",
+    "  pick      optional. true marks it as a recommendation."
   ],
 
   "affiliateTag": "nexedge-20",
@@ -40,13 +49,16 @@
       "id": "redragon-m901k",
       "name": "Redragon M901K",
       "category": "mice",
+      "group": "MMO Mice",
       "budget": "under100",
       "asin": "B0D3PNVQWK",
       "verdict": "",
       "specs": {
+        "Connection": "",
         "Max DPI": "12,400",
         "Programmable buttons": "19",
         "Side buttons": "12",
+        "Battery life": "",
         "Weight tuning": "8 x 2.4g",
         "Lighting": "RGB"
       }
@@ -55,6 +67,7 @@
       "id": "redragon-m908",
       "name": "Redragon M908 Impact",
       "category": "mice",
+      "group": "MMO Mice",
       "budget": "under100",
       "asin": "B07HC4NBQ8",
       "verdict": "",
@@ -63,6 +76,7 @@
         "Max DPI": "12,400",
         "Programmable buttons": "18",
         "Side buttons": "12",
+        "Battery life": "",
         "Sensor": "Optical",
         "Lighting": "RGB"
       }
@@ -71,6 +85,7 @@
       "id": "redragon-m901p-ks",
       "name": "Redragon M901P-KS",
       "category": "mice",
+      "group": "MMO Mice",
       "budget": "under100",
       "asin": "B0CKN2NSYL",
       "verdict": "",
@@ -87,12 +102,16 @@
       "id": "utechsmart-venus",
       "name": "UtechSmart Venus",
       "category": "mice",
+      "group": "MMO Mice",
       "budget": "under100",
       "asin": "B07XP4K152",
       "verdict": "",
       "specs": {
         "Connection": "Wired",
         "Max DPI": "16,400",
+        "Programmable buttons": "",
+        "Side buttons": "",
+        "Battery life": "",
         "Sensor": "Laser",
         "Lighting": "RGB"
       }
@@ -101,22 +120,26 @@
       "id": "razer-naga-v2-hyperspeed",
       "name": "Razer Naga V2 HyperSpeed",
       "category": "mice",
+      "group": "MMO Mice",
       "budget": "100to200",
       "asin": "B0BGJT87N2",
       "verdict": "",
       "specs": {
         "Connection": "Wireless",
-        "Sensor": "Focus Pro 30K optical",
+        "Max DPI": "",
         "Programmable buttons": "19",
+        "Side buttons": "12",
+        "Battery life": "Up to 400 hours",
+        "Sensor": "Focus Pro 30K optical",
         "Switches": "Mechanical Gen-2",
-        "Scroll": "HyperScroll",
-        "Battery life": "Up to 400 hours"
+        "Scroll": "HyperScroll"
       }
     },
     {
       "id": "corsair-scimitar-elite-wireless-se",
       "name": "Corsair Scimitar Elite Wireless SE",
       "category": "mice",
+      "group": "MMO Mice",
       "budget": "100to200",
       "asin": "B0F6NGCDFN",
       "verdict": "",
@@ -124,9 +147,10 @@
         "Connection": "Wireless",
         "Max DPI": "33,000",
         "Programmable buttons": "16",
-        "Key slider": "Yes",
+        "Side buttons": "12",
+        "Battery life": "Up to 150 hours",
         "Polling rate": "1,000Hz",
-        "Battery life": "Up to 150 hours"
+        "Key slider": "Yes"
       }
     }
   ]

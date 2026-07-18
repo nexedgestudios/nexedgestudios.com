@@ -82,8 +82,16 @@
       </div>
     </div>
 
-    <p class="count" id="count" hidden></p>
-    <div class="plist" id="plist"></div>
+    <div class="frow" id="viewRow" hidden style="margin-bottom:18px">
+      <p class="count" id="count" style="margin:0"></p>
+      <div class="view">
+        <button type="button" id="vChart" aria-pressed="true">Chart</button>
+        <button type="button" id="vCards" aria-pressed="false">Cards</button>
+      </div>
+    </div>
+
+    <div id="charts"></div>
+    <div class="plist" id="plist" hidden></div>
     <div class="empty" id="empty" hidden></div>
   </section>
 </div>
@@ -152,11 +160,25 @@
 (function(){
   'use strict';
   var listEl   = document.getElementById('plist');
+  var chartsEl = document.getElementById('charts');
   var emptyEl  = document.getElementById('empty');
   var countEl  = document.getElementById('count');
   var filters  = document.getElementById('filters');
+  var viewRow  = document.getElementById('viewRow');
+  var vChart   = document.getElementById('vChart');
+  var vCards   = document.getElementById('vCards');
   var data = null;
   var sel = { budget:'all', category:'all' };
+  var view = 'chart';
+
+  function setView(v){
+    view = v;
+    vChart.setAttribute('aria-pressed', String(v === 'chart'));
+    vCards.setAttribute('aria-pressed', String(v === 'cards'));
+    render();
+  }
+  vChart.addEventListener('click', function(){ setView('chart'); });
+  vCards.addEventListener('click', function(){ setView('cards'); });
 
   function say(html){ emptyEl.hidden = false; emptyEl.innerHTML = html; }
 
@@ -209,6 +231,111 @@
     return hit ? hit.label : id;
   }
 
+  /* Build one side-by-side chart per group. Spec rows are the UNION of every
+     key across the products in that group, in first-seen order, so a spec one
+     product has and another lacks still gets a row with a dash. */
+  function buildCharts(items){
+    var groups = [];
+    items.forEach(function(p){
+      var g = p.group || 'Comparison';
+      if(groups.indexOf(g) === -1) groups.push(g);
+    });
+
+    groups.forEach(function(g){
+      var inGroup = items.filter(function(p){ return (p.group || 'Comparison') === g; });
+
+      var keys = [];
+      inGroup.forEach(function(p){
+        Object.keys(p.specs || {}).forEach(function(k){
+          if(keys.indexOf(k) === -1) keys.push(k);
+        });
+      });
+
+      var wrap = document.createElement('div');
+      wrap.className = 'chartwrap';
+      var h = document.createElement('h3');
+      h.textContent = g;
+      wrap.appendChild(h);
+
+      var scroll = document.createElement('div');
+      scroll.className = 'chartscroll';
+      var t = document.createElement('table');
+      t.className = 'chart';
+
+      /* header: product names + budget band */
+      var thead = document.createElement('thead');
+      var hr = document.createElement('tr');
+      hr.appendChild(document.createElement('th'));
+      inGroup.forEach(function(p){
+        var th = document.createElement('th');
+        if(p.pick) th.className = 'pickcol';
+        th.appendChild(document.createTextNode(p.name));
+        var b = document.createElement('span');
+        b.className = 'colband';
+        b.textContent = p.pick ? 'Our pick' : labelFor(data.budgets, p.budget);
+        th.appendChild(b);
+        hr.appendChild(th);
+      });
+      thead.appendChild(hr);
+      t.appendChild(thead);
+
+      /* one row per spec */
+      var tb = document.createElement('tbody');
+      keys.forEach(function(k){
+        var tr = document.createElement('tr');
+        var th = document.createElement('th');
+        th.textContent = k;
+        tr.appendChild(th);
+        inGroup.forEach(function(p){
+          var td = document.createElement('td');
+          var v = (p.specs || {})[k];
+          if(v === undefined || v === null || v === ''){
+            td.textContent = '—';
+            td.className = 'blank';
+            td.title = 'Not stated by the manufacturer';
+          } else {
+            td.textContent = v;
+          }
+          tr.appendChild(td);
+        });
+        tb.appendChild(tr);
+      });
+
+      /* buy row, only when a real tag exists */
+      if(data.affiliateTag){
+        var br = document.createElement('tr');
+        br.appendChild(document.createElement('th'));
+        inGroup.forEach(function(p){
+          var td = document.createElement('td');
+          td.className = 'buy';
+          if(p.asin){
+            var a = document.createElement('a');
+            a.className = 'btn solid';
+            a.href = 'https://www.amazon.com/dp/' + encodeURIComponent(p.asin) +
+                     '?tag=' + encodeURIComponent(data.affiliateTag);
+            a.rel = 'sponsored nofollow noopener';
+            a.target = '_blank';
+            a.textContent = 'Check price';
+            td.appendChild(a);
+          }
+          br.appendChild(td);
+        });
+        tb.appendChild(br);
+      }
+
+      t.appendChild(tb);
+      scroll.appendChild(t);
+      wrap.appendChild(scroll);
+
+      var hint = document.createElement('p');
+      hint.className = 'charthint';
+      hint.textContent = 'Specs as stated by each manufacturer. A dash means they do not publish that figure. Scroll sideways to see every column.';
+      wrap.appendChild(hint);
+
+      chartsEl.appendChild(wrap);
+    });
+  }
+
   function render(){
     var items = data.products.filter(function(p){
       return (sel.budget === 'all' || p.budget === sel.budget) &&
@@ -216,16 +343,25 @@
     });
 
     listEl.innerHTML = '';
+    chartsEl.innerHTML = '';
     emptyEl.hidden = true;
-    countEl.hidden = false;
+    viewRow.hidden = false;
     countEl.textContent = items.length + (items.length === 1 ? ' match' : ' matches');
 
     if(!items.length){
-      countEl.hidden = true;
+      viewRow.hidden = true;
+      listEl.hidden = true;
       say('<b>Nothing in that combination yet.</b> Try a wider budget, or ' +
           'email us and we will look into it for you.');
       return;
     }
+
+    if(view === 'chart'){
+      listEl.hidden = true;
+      buildCharts(items);
+      return;
+    }
+    listEl.hidden = false;
 
     items.forEach(function(p){
       var card = document.createElement('article');
