@@ -106,6 +106,60 @@ Before doing that, rule out **stale AAAA records** (phones prefer IPv6) and a
 
 ---
 
+## Brand assets and favicons
+
+Source logo: **`assets/brand/net-logo.png`** (1500x1500, red NET mark, **already
+transparent**). A pristine copy plus every generated size lives in
+**`brand-source/`**.
+
+Generated: `favicon.ico` (multi-size 16/32/48), `favicon-16`, `favicon-32`,
+`icon-192`, `icon-512`, `apple-touch-icon` (180).
+
+🚨 **Keep the transparency.** The first attempt called
+`Graphics.Clear(background)` before drawing, which filled the alpha and produced
+red-on-black squares. Clear to `Color::Transparent` instead.
+
+**The one deliberate exception is `apple-touch-icon.png`, which keeps a solid
+background** — iOS ignores alpha on touch icons and composites them itself, so
+an explicit background renders predictably on a home screen.
+
+The logo also appears inline in the nav, the slide-out panel header and the
+footer, via `.word img` in site.css.
+
+## Social links — all verified, never invent these
+
+```
+YouTube    https://www.youtube.com/@NexEdgeTech
+X          https://x.com/nexedgestudios
+Instagram  https://www.instagram.com/nexedgetech
+```
+Also real but not yet on the site: `tiktok.com/@nexedgetech`,
+`twitch.tv/nexedgetech`.
+
+Note the split: **channels are `nexedgetech`, X is `nexedgestudios`** because
+the other handle was taken. Icons sit top-right in `.social`.
+
+## ⚠️ copyright/index.html is the odd one out
+
+It was written before the CSS was extracted, so it has **its own inline
+`<style>` and does not load `site.css`**. Anything added to the shared
+stylesheet must be duplicated there by hand — that already caught the `.social`
+and `.word img` rules. Worth converting it to the shared sheet one day.
+
+## Two ways this bit me, both avoidable
+
+**Extracting CSS silently dropped rules.** `.social` existed in the original
+single-file page and never made it into `assets/site.css`. The icons sat in the
+HTML with no styling and stacked vertically. After any extraction, check the
+classes still resolve.
+
+**PowerShell has reserved variables.** `$home = Get-Content ...` fails silently
+because `$HOME` is read-only, so a later `Set-Content -Value $home` wrote the
+*home directory path* over `index.html` and destroyed it. Recovered with
+`git checkout -- index.html` because the good version had just been pushed.
+**Use the Edit tool for text surgery, not PowerShell string replacement**, and
+avoid `$home`, `$input`, `$args`, `$error`.
+
 ## DNS (Squarespace)
 
 The domain is at **Squarespace Domains**. Its DNS panel warns "You're using
