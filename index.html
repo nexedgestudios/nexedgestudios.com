@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NexEdge Studios</title>
+<meta name="description" content="NexEdge Studios builds tech content, homeschool tools and software. Parent company of NexEdge Tech and NexStudents.">
+<meta property="og:title" content="NexEdge Studios">
+<meta property="og:description" content="Tech content, homeschool tools and software.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://nexedgestudios.com/">
+<style>
+  /* System fonts only: nothing to load, nothing to break. */
+  :root{
+    --bg:#ffffff; --fg:#14171c; --muted:#5b6472;
+    --card:#f6f7f9; --line:#e3e6ea; --accent:#0b6bcb; --accent-fg:#ffffff;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#0d1117; --fg:#e8edf4; --muted:#98a3b3;
+      --card:#161b22; --line:#262d36; --accent:#4c9aff; --accent-fg:#0d1117;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0d1117; --fg:#e8edf4; --muted:#98a3b3;
+    --card:#161b22; --line:#262d36; --accent:#4c9aff; --accent-fg:#0d1117;
+  }
+  :root[data-theme="light"]{
+    --bg:#ffffff; --fg:#14171c; --muted:#5b6472;
+    --card:#f6f7f9; --line:#e3e6ea; --accent:#0b6bcb; --accent-fg:#ffffff;
+  }
+
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--bg); color:var(--fg);
+    font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:820px;margin:0 auto;padding:0 24px}
+
+  header{padding:96px 0 56px;border-bottom:1px solid var(--line)}
+  .mark{
+    display:inline-flex;align-items:center;gap:12px;
+    font-size:13px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--muted);margin-bottom:22px;
+  }
+  .dot{width:9px;height:9px;border-radius:50%;background:var(--accent);flex:none}
+  h1{font-size:clamp(2.1rem,6vw,3.4rem);line-height:1.1;margin:0 0 18px;letter-spacing:-.02em}
+  .lede{font-size:clamp(1.05rem,2.4vw,1.2rem);color:var(--muted);margin:0;max-width:56ch}
+
+  section{padding:56px 0;border-bottom:1px solid var(--line)}
+  h2{font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin:0 0 26px;font-weight:600}
+
+  .brands{display:grid;gap:16px}
+  @media(min-width:720px){ .brands{grid-template-columns:1fr 1fr} }
+  .brand{
+    background:var(--card);border:1px solid var(--line);border-radius:12px;
+    padding:24px;
+  }
+  .brand h3{margin:0 0 8px;font-size:1.12rem}
+  .brand p{margin:0;color:var(--muted);font-size:.95rem}
+  .brand .tag{
+    display:inline-block;margin-top:14px;font-size:.72rem;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--muted);border:1px solid var(--line);
+    border-radius:999px;padding:3px 10px;
+  }
+
+  a{color:var(--accent)}
+  a:hover{text-decoration:none}
+  .links{display:flex;flex-wrap:wrap;gap:12px;margin-top:8px}
+  .btn{
+    display:inline-block;padding:11px 18px;border-radius:9px;
+    border:1px solid var(--line);background:var(--card);
+    color:var(--fg);text-decoration:none;font-size:.94rem;
+  }
+  .btn:hover{border-color:var(--accent)}
+  .btn.primary{background:var(--accent);color:var(--accent-fg);border-color:var(--accent)}
+
+  footer{padding:40px 0 72px;color:var(--muted);font-size:.88rem}
+  footer p{margin:0 0 6px}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header>
+    <div class="mark"><span class="dot"></span> NexEdge Studios</div>
+    <h1>We build things that keep working.</h1>
+    <p class="lede">
+      NexEdge Studios makes tech content, homeschool tools and small, dependable
+      software. Everything here is built to be simple enough to still run years
+      from now.
+    </p>
+  </header>
+
+  <section>
+    <h2>What we make</h2>
+    <div class="brands">
+
+      <div class="brand">
+        <h3>NexEdge Tech</h3>
+        <p>
+          Our tech brand. Reviews, tutorials and hands-on breakdowns of the
+          hardware and settings most people never dig into.
+        </p>
+        <span class="tag">Content</span>
+      </div>
+
+      <div class="brand">
+        <h3>NexStudents</h3>
+        <p>
+          Tools for homeschool families. Built from the day-to-day reality of
+          teaching at home, not from a spec sheet.
+        </p>
+        <span class="tag">Education</span>
+      </div>
+
+      <div class="brand">
+        <h3>MyWika</h3>
+        <p>
+          A language learning app built around flashcards you actually control,
+          with word parts, practice drills and streaks.
+        </p>
+        <span class="tag">App</span>
+      </div>
+
+      <div class="brand">
+        <h3>Open source</h3>
+        <p>
+          Small utilities we needed and decided to share, including scrcpy
+          Manager for mirroring an Android phone to a PC.
+        </p>
+        <span class="tag">Tools</span>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <h2>Contact</h2>
+    <p class="lede" style="margin-bottom:20px">
+      Questions, collaboration or press, this reaches us directly.
+    </p>
+    <div class="links">
+      <a class="btn primary" href="mailto:contact@nexedgestudios.com">contact@nexedgestudios.com</a>
+      <a class="btn" href="https://github.com/nexedgestudios">GitHub</a>
+    </div>
+  </section>
+
+  <footer>
+    <p><strong>NexEdge Tech</strong> is the tech brand of NexEdge Studios.</p>
+    <p>&copy; <span id="y">2026</span> NexEdge Studios. All rights reserved.</p>
+  </footer>
+
+</div>
+
+<script>
+  document.getElementById('y').textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
