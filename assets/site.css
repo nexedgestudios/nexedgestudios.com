@@ -54,12 +54,20 @@ nav.top{position:sticky;top:0;z-index:60;
 .word img{width:26px;height:26px;display:block;flex:none}
 .fbrand .word img{width:32px;height:32px}
 .panel-top .word img{width:24px;height:24px}
-/* On mobile the wordmark centres itself regardless of the burger's width.
-   Absolute centring beats flex here - it stays dead centre even though the
-   burger sits on the left and there is nothing on the right. */
+/* On mobile: burger left, wordmark dead centre, social icons right.
+   This WAS absolute centring, written when the right side of the nav was
+   empty. The social icons were added later and the absolute wordmark - being
+   out of normal flow - had no idea they existed and sat on top of them in
+   portrait. A 3-column grid keeps it dead centre (the 1fr side columns are
+   equal, so the centre column is centred in the viewport regardless of how
+   wide the burger or the icons are) AND makes overlap structurally
+   impossible. Do not go back to absolute positioning here. */
 @media(max-width:880px){
-  .nav-in{position:relative;min-height:40px}
-  nav.top .word{position:absolute;left:50%;transform:translateX(-50%);margin:0}
+  .nav-in{display:grid;grid-template-columns:1fr auto 1fr;
+    align-items:center;gap:8px;min-height:40px}
+  .burger{justify-self:start}
+  nav.top .word{position:static;transform:none;margin:0;justify-self:center}
+  .social{justify-self:end;margin-left:0}
 }
 .tabs{display:flex;gap:2px;align-items:center;flex:1}
 .tabs a{color:var(--muted);text-decoration:none;font-size:12px;
@@ -82,6 +90,19 @@ nav.top{position:sticky;top:0;z-index:60;
 .social a:hover{color:var(--fg);border-color:var(--accent);transform:translateY(-1px)}
 .social svg{width:17px;height:17px;fill:currentColor;display:block}
 @media(max-width:420px){ .social a{width:30px;height:30px} .social svg{width:15px;height:15px} }
+
+/* Narrow phones: burger + wordmark + 3 icons genuinely do not fit at 320-360px
+   at full size - the icons were being clipped off the right edge. Shrink the
+   nav's OWN padding and the wordmark to make the row fit.
+   ⚠️ Do NOT shrink --gutter to solve this. --gutter is 30px on purpose: it is
+   what stops overflow-x:hidden slicing the hero ring on the home page. This
+   rule touches .nav-in's padding only, so the ring is unaffected. */
+@media(max-width:400px){
+  .nav-in{padding-left:10px;padding-right:10px;gap:6px}
+  nav.top .word{font-size:15px;gap:6px}
+  nav.top .word img{width:22px;height:22px}
+  .social{gap:5px}
+}
 
 /* ---------- burger + left slide-out panel ---------- */
 .burger{margin-left:-10px;margin-right:4px;display:inline-flex;flex-direction:column;

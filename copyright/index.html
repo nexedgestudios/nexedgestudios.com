@@ -46,6 +46,24 @@
   .back{color:var(--muted);text-decoration:none;font-size:12px;
     letter-spacing:.1em;text-transform:uppercase;font-weight:700}
   .back:hover{color:var(--fg)}
+  /* Narrow phones: the wordmark and the icons do not fit at full size and the
+     icons get clipped off the right edge. This MIRRORS the rule in
+     assets/site.css - this page has its own stylesheet, so it has to be
+     duplicated here by hand. Change one, change both.
+     ⚠️ Do NOT shrink --gutter to fix this; --gutter is what keeps the hero
+     ring from being sliced on the home page. Shrink the nav's padding only.
+     (This page centres with space-between, not the absolute positioning that
+     caused the overlap bug on the main nav, so it needs the sizing fix only.) */
+  @media(max-width:420px){
+    .social a{width:30px;height:30px}
+    .social svg{width:15px;height:15px}
+  }
+  @media(max-width:400px){
+    .nav-in{padding-left:10px;padding-right:10px;gap:6px}
+    .word{font-size:15px;gap:6px}
+    .word img{width:22px;height:22px}
+    .social{gap:5px}
+  }
 
   header{padding:76px 0 34px}
   h1{margin:0 0 12px;font-weight:900;letter-spacing:-.04em;line-height:1.05;
