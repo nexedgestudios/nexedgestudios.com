@@ -1,0 +1,9 @@
+# nexedgestudios.com
+# Everything is open to crawlers. This file exists so that /robots.txt returns
+# real text instead of the 404 page GitHub Pages serves for missing files, which
+# Search Console reported as a critical error.
+# Add a Sitemap: line here once sitemap.xml actually exists - never point at one
+# that does not, it just trades one error for another.
+
+User-agent: *
+Allow: /
